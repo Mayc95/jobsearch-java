@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" class="first-theme">
+<head>
+
+  <th:block th:replace="fragments/frontend/fragment_head :: head ('Recruiter Save Profile')" />
+
+</head>
+<body>
+
+<th:block th:replace="fragments/frontend/fragment_header :: header" />
+
+<th:block th:replace="fragments/frontend/fragment_section_page_title :: section_page_title (${actionText}+' une offre')" />
+
+
+<div id="saveOfferPage" class="job-post pt-30 pb-70">
+  <div class="container">
+    <form th:action="@{/offer/save}" method="post" enctype="multipart/form-data"  class="job-post-from customFormInputStyle">
+
+      <input th:if="${offer != null}" name="id" type="text" th:value="${offer.id}" hidden>
+
+      <h2>Remplissez les informations de l'offre</h2>
+      <div class="row mt-5">
+
+        <div class="col-md-12">
+          <div class="form-group mb-3">
+            <div class="row">
+              <div class="col-xs-12 col-md-3 col-lg-2">
+
+                <img
+                        th:if="${ (offer !=null) && (offer.imageLocation!=null) }"
+                        th:src="${'__${offer.imageLocation}__'}"
+                        width="120" alt="Offer Image"
+                >
+                <img
+                        th:unless="${(offer!=null) && (offer.imageLocation!=null) }"
+                        th:src="@{/assets/frontend/img/img-icon.png}"
+                        width="120" alt="Offer Image"
+                >
+                <!--
+                <img
+                        th:src="@{/assets/frontend/img/img-icon.png}"
+                        width="120" alt="Offer Image"
+                >
+                -->
+              </div>
+              <div class="col-xs-12 col-md-6 col-lg-5">
+                <div class="col-12">
+                  <label>Ajouter une image</label>
+                </div>
+                <div class="col-12">
+                  <input name="file" type="file" id="img" accept="image/*">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <div class="row">
+              <div class="col-12">
+                <label>Libelle de l'offre</label>
+              </div>
+              <div class="col-12">
+                <input
+                        th:value="${(offer!=null) ? offer.libelle : ''}"
+                        name="libelle" type="text" class="form-control"
+                        required
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <div class="row">
+              <div class="col-12">
+                <label>Adresse mail de l'offre</label>
+              </div>
+              <div class="col-12">
+                <input
+                        th:value="${(offer!=null) ? offer.email : ''}"
+                        name="email" type="text" class="form-control"
+                        required
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <div class="row">
+              <div class="col-12">
+                <label>Entreprise</label>
+              </div>
+              <div class="col-12">
+                <select name="company" class="category w-100" required>
+                  <option th:if="${offer==null or offer.company==null}" value="" disabled selected hidden>Sélectionner une entreprise</option>
+                  <option
+                          th:each="c:${allCompany}"
+                          th:text="${c.name}" th:value="${c.id}"
+                          th:selected="${(offer!=null && offer.company.id==c.id)}"
+                  ></option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <div class="row">
+              <div class="col-12">
+                <label>Type de l'offre</label>
+              </div>
+              <div class="col-12">
+                <select name="typeOffre" class="category w-100" required>
+                  <option th:if="${offer==null or offer.typeOffre==null}" value="" disabled selected hidden>Sélectionner un type</option>
+                  <option
+                          th:each="typeO: ${allTypeOffer}"
+                          th:text="${typeO.libelle}" th:value="${typeO.id}"
+                          th:selected="${(offer!=null && offer.typeOffre.id==typeO.id)}"
+                  ></option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <div class="row">
+              <div class="col-12">
+                <label>Secteur d'activité</label>
+              </div>
+              <div class="col-12">
+                <select name="activitySector" class="category w-100" required>
+                  <option th:if="${offer==null or offer.activitySector==null}" value="" disabled selected hidden>Sélectionner un secteur d'activité</option>
+                  <option
+                          th:each="activity: ${allActivitySector}"
+                          th:text="${activity.libelle}" th:value="${activity.id}"
+                          th:selected="${(offer!=null && offer.activitySector.id==activity.id)}"
+                  ></option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <div class="row">
+              <div class="col-12">
+                <label>Niveau d'étude</label>
+              </div>
+              <div class="col-12">
+                <select name="niveauScolaire" class="category w-100" required>
+                  <option th:if="${offer==null or offer.niveauScolaire==null}" value="" disabled selected hidden>Sélectionner un niveau d'étude</option>
+                  <option
+                          th:each="level: ${allSchoolLevel}"
+                          th:text="${level.libelle}" th:value="${level.id}"
+                          th:selected="${(offer!=null && offer.niveauScolaire.id==level.id)}"
+                  ></option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <div class="row">
+              <div class="col-12">
+                <label>Niveau d'expérience</label>
+              </div>
+              <div class="col-12">
+                <select name="niveauExperience" class="category w-100" required>
+                  <option th:if="${offer==null or offer.niveauExperience==null}" value="" disabled selected hidden>Sélectionner un niveau d'expérience</option>
+                  <option
+                          th:each="level: ${allLevelExperience}"
+                          th:text="${level.libelle}" th:value="${level.id}"
+                          th:selected="${(offer!=null && offer.niveauExperience.id==level.id)}"
+                  ></option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+                th:if="${offer!=null}"
+                class="col-md-6"
+        >
+          <div class="form-group">
+            <div class="row">
+              <div class="col-12">
+                <label>Date de publication</label>
+              </div>
+              <div class="col-12">
+                <input
+                        th:if="${offer!=null && offer.dateDePublication!=null}"
+                        type="date" class="form-control"
+                        th:value="${(offer!=null && offer.dateDePublication!=null) ? #dates.format(offer.dateDePublication,'yyyy-MM-dd') : ''}"
+                        th:disabled="${(offer.etat=='FINISHED') ? 'true' : 'false'}"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <div class="row">
+              <div class="col-12">
+                <label>Date d'expiration</label>
+              </div>
+              <div class="col-12">
+                <input
+                        name="dateExpirationInString"
+                        type="date" class="form-control"
+                        th:value="${(offer!=null && offer.dateExpiration!=null) ? #dates.format(offer.dateExpiration,'yyyy-MM-dd') : ''}"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <div class="row">
+              <div class="col-12">
+                <label>Salaire</label>
+              </div>
+              <div class="col-12">
+                <input
+                        name="salaire" type="text" class="form-control"
+                        th:value="${(offer!=null) ? offer.salaire : ''}"
+                        placeholder="Facultatif"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <div class="row">
+              <div class="col-12">
+                <label>Langue</label>
+              </div>
+              <div class="col-12">
+                <input
+                        name="langue" type="text" class="form-control"
+                        th:value="${(offer!=null) ? offer.langue : ''}"
+                        placeholder="Facultatif"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="form-group">
+            <div class="row">
+              <div class="col-12 mt-3">
+                <label>Description</label>
+              </div>
+              <div class="col-12">
+                <textarea name="description" id="tinyMceWYSIWYGEditor" class="form-control"
+                          th:text="${(offer!=null) ? offer.description : ''}"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="theme-btn">
+            <button
+                    th:text="${actionText}"
+                    id="btn_submit_form" type="submit" class="default-btn"
+            ></button>
+          </div>
+        </div>
+
+        <!--
+        <div class="col-md-6">
+          <div class="form-group">
+            <div class="row">
+              <div class="col-12">
+                <label>Auteur</label>
+              </div>
+              <div class="col-12">
+                <select name="user" class="category w-100" required>
+
+                  <option th:if="${offer==null or offer.auteur==null}" value="" disabled selected hidden>Sélectionner un utilisateur</option>
+
+                  <option
+                          th:each="user: ${allUsers}"
+                          th:text="${user.username}" th:value="${user.id}"
+                  ></option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <div class="row">
+              <div class="col-12">
+                <label>Région</label>
+              </div>
+              <div class="col-12">
+                <select name="idregion" class="category w-100" required>
+                  <option th:if="${offer==null or offer.region==null}" value="" disabled selected hidden>Sélectionner une région</option>
+                  <option
+                          th:each="region: ${allRegion}" th:text="${region.libelle}"
+                          th:value="${region.id}"
+                          th:selected="${(offer!=null && offer.region.id==region.id)}"
+                  ></option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="form-group">
+            <div class="row">
+              <div class="col-12 mt-3">
+                <label>Mots clé</label>
+              </div>
+              <div class="col-12 selectTagsListForOffer">
+                <select id="bootstrapMultipleSelect" name="tags" multiple class="form-control">
+                  <option
+                          value="" disabled hidden
+                          th:text="${(allTags.size>0) ? 'Sélectionner la liste de tag' : 'Aucun tag disponible. Veuillez ajouter des tags'}"
+                  ></option>
+                  <option
+                          th:if="${(allTags.size > 0 && offer != null)}"
+                          th:each="tag:${allTags}"
+                          th:text="${tag.libelle}" th:value="${tag.id}"
+                          th:selected="${(offer.tags!=null && offer.tags.size>0) && offer.tags.contains(tag)}"
+                  ></option>
+                  <option
+                          th:if="${(allTags.size > 0 && offer == null)}"
+                          th:each="tag:${allTags}"
+                          th:text="${tag.libelle}" th:value="${tag.id}"
+                  ></option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        -->
+
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<th:block th:replace="fragments/frontend/fragment_footer :: footer" />
+
+<th:block th:replace="fragments/frontend/fragment_script :: script" />
+
+</body>
+</html>

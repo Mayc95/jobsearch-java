@@ -1,0 +1,45 @@
+
+/*# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiY3VzdG9tLmNzcyIsInNvdXJjZXMiOlsiY3VzdG9tLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiJ9 */
+
+/*# sourceMappingURL=custom.css.map */
+
+/***** Common style *****/
+.gray-color {
+    color: #6c757d !important;
+}
+.no-style{
+    background: transparent;
+    box-shadow: 0px 0px 0px transparent;
+    border: 0px solid transparent;
+    text-shadow: 0px 0px 0px transparent;
+}
+.main-sidebar {
+    padding-bottom: 20px;
+}
+.dropdown-menu .dropdown-menu-btn {
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 500;
+}
+/* for select2 element */
+.select2-container--default .select2-selection--multiple .select2-selection__choice,
+.select2-container--default .select2-results__option,
+.select2-container--default .select2-results__option[aria-selected=true] {
+    color: #495057;
+}
+
+/***** For Dash Page *****/
+/* for statsSlider1 */
+#statsSlider1.owl-theme .owl-nav {
+    margin-top: 0;
+    margin-bottom: 25px;
+}
+/* for card item */
+#statsSlider1 .card {
+    margin-bottom: 10px;
+    box-shadow: none;
+}
+#statsSlider1 .card .card-icon > i {
+    font-size: 30px;
+    margin-left: 0;
+}

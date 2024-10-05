@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" class="first-theme">
+<head>
+
+    <th:block th:replace="fragments/frontend/fragment_head :: head ('User Profile')" />
+
+</head>
+<body id="userProfileSettingsPage">
+
+<th:block th:replace="fragments/frontend/fragment_header :: header" />
+
+<section class="account-section pt-50 pb-100">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <!-- Main Sidebar -->
+            <div class="col-md-3">
+                <th:block th:replace="fragments/frontend/fragment_account_sidebar :: account_sidebar" />
+            </div>
+            <!-- End Main Sidebar -->
+
+            <!-- Main Content -->
+            <div class="col-md-8">
+                <div class="account-details">
+
+                    <h3>Informations générales</h3>
+                    <form th:action="@{/account/profile}" method="post" enctype="multipart/form-data" class="basic-info customFormInputStyle">
+                        <input th:if="${authenticatedUser!=null}" name="id" type="text" th:value="${authenticatedUser.id}" hidden>
+
+                        <div class="row">
+                            <!--
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Nom complet</label>
+                                    <input
+                                            th:value="${userConnected!=null ? (userConnected.firstname+' '+userConnected.lastname) : '' }"
+                                            type="text"
+                                            class="form-control"
+                                            disabled
+                                    >
+                                </div>
+                            </div>
+                            -->
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-3">
+
+                                            <img
+                                                    th:if="${authenticatedUser!=null && authenticatedUser.photoLink!=null}"
+                                                    th:src="${authenticatedUser.photoLink}"
+                                                    width="160"
+                                                    alt="User Image"
+                                            >
+                                            <img
+                                                    th:unless="${authenticatedUser!=null && authenticatedUser.photoLink!=null}"
+                                                    th:src="@{/assets/frontend/img/user-icon.png}"
+                                                    width="160"
+                                                    alt="User Image"
+                                            >
+
+                                            <!--
+                                            <img
+                                                    th:src="@{/assets/frontend/img/user-icon.png}"
+                                                    width="160"
+                                                    alt="User Image"
+                                            >
+                                            -->
+                                        </div>
+                                        <div class="col-9">
+                                            <div class="row">
+                                                <div class="col-12 mb-2 d-flex flex-column">
+                                                    <label>Photo de profil</label>
+                                                    <input name="file" type="file" id="img" accept="image/*">
+                                                </div>
+                                                <!--
+                                                <div class="col-12 d-flex flex-column">
+                                                    <label>Télécharger votre CV</label>
+                                                    <input name="cv" type="file" id="cv" accept=".doc, .docx, .pdf, image/*">
+                                                </div>
+                                                -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Adresse mail*</label>
+                                    <input
+                                            name="email"
+                                            th:value="${authenticatedUser!=null ? authenticatedUser.email : '' }"
+                                            type="email"
+                                            class="form-control" required
+                                    >
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Nom*</label>
+                                    <input
+                                            name="firstname"
+                                            th:value="${authenticatedUser!=null ? authenticatedUser.firstname : '' }"
+                                            type="text"
+                                            class="form-control"
+                                            placeholder="Votre nom de famille" required
+                                    >
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Prénom(s)*</label>
+                                    <input
+                                            name="lastname"
+                                            th:value="${authenticatedUser!=null ? authenticatedUser.lastname : '' }"
+                                            type="text"
+                                            class="form-control"
+                                            placeholder="Votre ou vos prénoms" required
+                                    >
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Date de naissance</label>
+                                    <input
+                                            name="datenaissance"
+                                            type="date" class="form-control"
+                                            placeholder="Votre date de naissance"
+                                            th:value="${(authenticatedUser!=null && authenticatedUser.birthdate!=null) ? #dates.format(authenticatedUser.birthdate,'yyyy-MM-dd') : ''}"
+                                    >
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <label>Secteur d'activité*</label>
+                                        </div>
+                                        <div class="col-12">
+                                            <select name="activitySector" class="category w-100" required>
+                                                <option th:if="${authenticatedUser==null or authenticatedUser.activitySector==null}" value="">Sélectionner un secteur d'activité</option>
+                                                <option th:if="${allActivitySector?.size <= 0}" value="">Aucune option disponible</option>
+                                                <option
+                                                        th:if="${allActivitySector?.size > 0}" th:each="activitySector: ${allActivitySector}"
+                                                        th:text="${activitySector.libelle}" th:value="${activitySector.id}"
+                                                        th:selected="${(authenticatedUser.activitySector!=null && authenticatedUser.activitySector.id==activitySector.id)}"
+                                                ></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <label>Civilité*</label>
+                                        </div>
+                                        <div class="col-12">
+
+                                            <select required name="civility" th:value="${authenticatedUser.civility!=null && authenticatedUser.civility!='' ? authenticatedUser.civility : ''}" class="category w-100">
+                                                <option th:if="${authenticatedUser==null or authenticatedUser.civility==''}" value="" disabled selected hidden>Sélectionner une civilité</option>
+                                                <option value="monsieur" th:selected="${(authenticatedUser.civility!=null && authenticatedUser.civility!='' && userConnected.civility=='monsieur')}">Monsieur</option>
+                                                <option value="madame" th:selected="${(authenticatedUser.civility!=null && userConnected.civility!='' && userConnected.civility=='madame')}">Madame</option>
+                                                <option value="mademoiselle" th:selected="${(authenticatedUser.civility!=null && userConnected.civility!='' && userConnected.civility=='mademoiselle')}">Mademoiselle</option>
+                                            </select>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--
+                            <div class="col-md-12">
+                                <div class="form-group d-flex flex-column">
+                                    <label>Description</label>
+
+                                    <textarea th:text="${(authenticatedUser.description != '') ? authenticatedUser.description : ''}" name="description" class="form-control" th:placeholder="${'Facultatif'}"></textarea>
+                                    <textarea name="description" class="form-control" th:placeholder="${'Facultatif'}"></textarea>
+
+                                </div>
+                            </div>
+                             -->
+                            <div class="col-md-12">
+                                <button type="submit" class="account-btn">Enregistrer</button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!--
+
+                    <h3>Autres informations</h3>
+                    <div id="profileSettingsPagePanel" class="dynamicPanelCustomStyle mb-3">
+                        <ul class="nav nav-pills mb-4" id="pills-tab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="pills-formations-tab" data-toggle="pill" href="#pills-formations" role="tab" aria-controls="pills-formations" aria-selected="true">Formations</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="pills-competences-tab" data-toggle="pill" href="#pills-competences" role="tab" aria-controls="pills-competences" aria-selected="false">Compétences</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="pills-experiments-tab" data-toggle="pill" href="#pills-experiments" role="tab" aria-controls="pills-experiments" aria-selected="false">Expériences</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="pills-licenses-tab" data-toggle="pill" href="#pills-licenses" role="tab" aria-controls="pills-licenses" aria-selected="false">Diplômes</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="pills-achievement-tab" data-toggle="pill" href="#pills-achievement" role="tab" aria-controls="pills-announcements" aria-selected="false">Réalisations</a>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content" id="pills-tabContent">
+                            <div class="tab-pane fade show active" id="pills-formations" role="tabpanel" aria-labelledby="pills-formations-tab">
+                                <div class="mb-4">
+                                    <a th:href="@{/account/save/user_formation}" class="simple-account-btn">Ajouter une formation</a>
+                                </div>
+                                <table id="listOfUserFormations" class="table table-responsive mt-4">
+                                    <caption>Liste des formations</caption>
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">Libelle</th>
+                                        <th scope="col">description</th>
+                                        <th scope="col">Date de debut</th>
+                                        <th scope="col">Date de fin</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:if="${allFormations.size > 0}" th:each="formation : ${allFormations}">
+                                        <td th:text="${(formation.libelle.length>30) ? formation.libelle.substring(0,30)+'...' : formation.libelle}"></td>
+                                        <td th:text="${(formation.description.length>35) ? formation.description.substring(0,35)+'...' : formation.description}"></td>
+                                        <td th:text="${(formation.date_debut != null) ? #dates.format(formation.date_debut, 'dd MMMM yyyy') : ''}"></td>
+                                        <td th:text="${(formation.date_fin != null) ? #dates.format(formation.date_fin, 'dd MMMM yyyy') : ''}"></td>
+                                        <td>
+                                            <div class="d-flex flex-row">
+                                                <div class="theme-btn">
+                                                    <form th:action="@{/account/save/user_formation}" method="get">
+                                                        <input type="text" name="id" th:value="${formation.id}" hidden>
+                                                        <button type="submit" class="default-btn mr-1">Modifier</button>
+                                                    </form>
+                                                </div>
+                                                <div class="theme-btn">
+                                                    <form th:action="@{/account/delete/user_formation}" method="post">
+                                                        <input type="text" name="idformation" th:value="${formation.id}" hidden>
+                                                        <button type="submit" class="default-btn">Supprimer</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr th:unless="${allFormations.size > 0}">
+                                        <td>Aucune formation disponible</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="tab-pane fade" id="pills-experiments" role="tabpanel" aria-labelledby="pills-experiments-tab">
+                                <div class="mb-4">
+                                    <a th:href="@{/user_account/save_experiment}" class="simple-account-btn">Ajouter une expérience</a>
+                                </div>
+                                <table id="listOfUserExperiments" class="table table-responsive mt-4">
+                                    <caption>Liste des expériences</caption>
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">Libelle</th>
+                                        <th scope="col">description</th>
+                                        <th scope="col">Date de debut</th>
+                                        <th scope="col">Date de fin</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:if="${allExperiments.size > 0}" th:each="experiment : ${allExperiments}">
+                                        <td th:text="${(experiment.libelle.length>30) ? experiment.libelle.substring(0,30)+'...' : experiment.libelle}"></td>
+                                        <td th:text="${(experiment.description.length>35) ? experiment.description.substring(0,35)+'...' : experiment.description}"></td>
+                                        <td th:text="${(experiment.date_debut != null) ? #dates.format(experiment.date_debut, 'dd MMMM yyyy') : ''}"></td>
+                                        <td th:text="${(experiment.date_fin != null) ? #dates.format(experiment.date_fin, 'dd MMMM yyyy') : ''}"></td>
+                                        <td>
+                                            <div class="d-flex flex-row">
+                                                <div class="theme-btn">
+                                                    <form th:action="@{/user_account/save_experiment}" method="get">
+                                                        <input type="text" name="id" th:value="${experiment.id}" hidden>
+                                                        <button type="submit" class="default-btn mr-1">Modifier</button>
+                                                    </form>
+                                                </div>
+                                                <div class="theme-btn">
+                                                    <form th:action="@{/user_account/delete_experiment}" method="post">
+                                                        <input type="text" name="idexperiment" th:value="${experiment.id}" hidden>
+                                                        <button type="submit" class="default-btn">Supprimer</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr th:unless="${allExperiments.size > 0}">
+                                        <td>Aucune expérience disponible</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="tab-pane fade" id="pills-competences" role="tabpanel" aria-labelledby="pills-competences-tab">
+                                <div class="mb-4">
+                                    <a th:href="@{/user_account/save_competence}" class="simple-account-btn">Ajouter une compétence</a>
+                                </div>
+                                <table id="listOfUserCompetences" class="table table-responsive mt-4">
+                                    <caption>Liste des compétences</caption>
+                                    <thead>
+                                    <tr>
+                                        <th scope="col" style="width: auto;">Libelle</th>
+                                        <th scope="col" style="width: auto;">description</th>
+                                        <th scope="col" style="width: auto;"></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:if="${allCompetences.size > 0}" th:each="competence : ${allCompetences}">
+                                        <td th:text="${(competence.libelle.length>30) ? competence.libelle.substring(0,30)+'...' : competence.libelle}"></td>
+                                        <td th:text="${(competence.description.length>35) ? competence.description.substring(0,35)+'...' : competence.description}"></td>
+                                        <td>
+                                            <div class="d-flex flex-row">
+                                                <div class="theme-btn">
+                                                    <form th:action="@{/user_account/save_competence}" method="get">
+                                                        <input type="text" name="id" th:value="${competence.id}" hidden>
+                                                        <button type="submit" class="default-btn mr-1">Modifier</button>
+                                                    </form>
+                                                </div>
+                                                <div class="theme-btn">
+                                                    <form th:action="@{/user_account/delete_competence}" method="post">
+                                                        <input type="text" name="idcompetence" th:value="${competence.id}" hidden>
+                                                        <button type="submit" class="default-btn">Supprimer</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr th:unless="${allCompetences.size > 0}">
+                                        <td>Aucune compétence disponible</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                            <div class="tab-pane fade" id="pills-licenses" role="tabpanel" aria-labelledby="pills-licenses-tab">
+                                <div class="mb-4">
+                                    <a th:href="@{/user_account/save_license}" class="simple-account-btn">Ajouter un diplôme</a>
+                                </div>
+                                <table id="listOfUserLicenses" class="table table-responsive mt-4">
+                                    <caption>Liste des diplômes</caption>
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">Libelle</th>
+                                        <th scope="col">description</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:if="${allLicenses.size > 0}" th:each="license : ${allLicenses}">
+                                        <td th:text="${(license.libelle.length>30) ? license.libelle.substring(0,30)+'...' : license.libelle}"></td>
+                                        <td th:text="${(license.description.length>35) ? license.description.substring(0,35)+'...' : license.description}"></td>
+                                        <td>
+                                            <div class="d-flex flex-row">
+                                                <div class="theme-btn">
+                                                    <form th:action="@{/user_account/save_license}" method="get">
+                                                        <input type="text" name="id" th:value="${license.id}" hidden>
+                                                        <button type="submit" class="default-btn mr-1">Modifier</button>
+                                                    </form>
+                                                </div>
+                                                <div class="theme-btn">
+                                                    <form th:action="@{/user_account/delete_license}" method="post">
+                                                        <input type="text" name="idlicense" th:value="${license.id}" hidden>
+                                                        <button type="submit" class="default-btn">Supprimer</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr th:unless="${allLicenses.size > 0}">
+                                        <td>Aucune licence disponible</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="tab-pane fade" id="pills-achievement" role="tabpanel" aria-labelledby="pills-achievement-tab">
+                                <div class="mb-4">
+                                    <a th:href="@{/user_account/save_achievement}" class="simple-account-btn">Ajouter une réalisation</a>
+                                </div>
+                                <table id="listOfUserAchievements" class="table table-responsive mt-4">
+                                    <caption>Liste des réalisations</caption>
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">Libelle</th>
+                                        <th scope="col">description</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:if="${allAchievements.size > 0}" th:each="achievement : ${allAchievements}">
+                                        <td th:text="${(achievement.libelle.length>30) ? achievement.libelle.substring(0,30)+'...' : achievement.libelle}"></td>
+                                        <td th:text="${(achievement.description.length>35) ? achievement.description.substring(0,35)+'...' : achievement.description}"></td>
+                                        <td>
+                                            <div class="d-flex flex-row">
+                                                <div class="theme-btn">
+                                                    <form th:action="@{/user_account/save_achievement}" method="get">
+                                                        <input type="text" name="id" th:value="${achievement.id}" hidden>
+                                                        <button type="submit" class="default-btn mr-1">Modifier</button>
+                                                    </form>
+                                                </div>
+                                                <div class="theme-btn">
+                                                    <form th:action="@{/user_account/delete_achievement}" method="post">
+                                                        <input type="text" name="idachievement" th:value="${achievement.id}" hidden>
+                                                        <button type="submit" class="default-btn">Supprimer</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr th:unless="${allAchievements.size > 0}">
+                                        <td>Aucune réalisation disponible</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3>Social links</h3>
+                    <form class="candidates-sociak">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Facebook</label>
+                                    <input type="text" class="form-control" placeholder="www.facebook.com/user">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Twitter</label>
+                                    <input type="number" class="form-control" placeholder="www.twitter.com/user">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Linkedin</label>
+                                    <input type="text" class="form-control" placeholder="www.Linkedin.com/user">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Github</label>
+                                    <input type="text" class="form-control" placeholder="www.Github.com/user">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <button type="submit" class="account-btn">Edit</button>
+                                <button type="submit" class="account-btn">Save</button>
+                            </div>
+                        </div>
+                    </form>
+
+                    -->
+
+                </div>
+            </div>
+            <!-- End Main Content -->
+        </div>
+    </div>
+</section>
+
+
+
+
+
+<th:block th:replace="fragments/frontend/fragment_footer :: footer" />
+
+<th:block th:replace="fragments/frontend/fragment_script :: script" />
+
+</body>
+</html>

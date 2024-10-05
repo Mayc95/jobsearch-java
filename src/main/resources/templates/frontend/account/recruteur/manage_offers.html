@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" class="first-theme">
+<head>
+
+  <th:block th:replace="fragments/frontend/fragment_head :: head ('Offres')" />
+
+</head>
+<body id="manageOffersPage">
+
+<th:block th:replace="fragments/frontend/fragment_header :: header" />
+
+<!-- Main Content -->
+
+
+<section class="account-section pt-50 pb-70">
+  <div class="container-fluid">
+    <div class="row flex-row justify-content-center">
+      <!-- Main Sidebar -->
+      <div class="col-md-3">
+        <th:block th:replace="fragments/frontend/fragment_account_sidebar :: account_sidebar" />
+      </div>
+      <!-- End Main Sidebar -->
+
+      <!-- Main Content -->
+      <div class="col-md-8">
+        <div class="overflowYForScroll">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="account-details box-shadow-none b-radius-0 pt-2 pb-0">
+                <div class="mb-3">
+                  <a th:href="@{/offer/save}" class="simple-account-btn">Ajouter une offre</a>
+                </div>
+                <!--
+                -- Search part
+                <form th:action="@{/recruiter/manage_offers/search}" method="post" class="searchOfferForm banner-form find-form mt-0">
+                  <div class="row justify-content-center">
+                    <div class="col-lg-12 mb-3">
+                      <div class="form-group">
+                        <select name="sector" class="category w-100 customFormInputStyle">
+                          <option value="" selected hidden>Sélectionner un secteur d'activité</option>
+                          <option
+                                  th:each="activitySector: ${allActivitySector}"
+                                  th:text="${activitySector.libelle}" th:value="${activitySector.libelle}"
+                                  th:selected="${(libellesector!=null && libellesector!='' && libellesector==activitySector.libelle)}"
+                          ></option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-lg-12 mb-3">
+                      <div class="form-group">
+                        <select name="region" class="category w-100">
+                          <option value="" selected hidden>Sélectionner une région</option>
+                          <option
+                                  th:each="region: ${allRegion}"
+                                  th:text="${region.libelle}" th:value="${region.libelle}"
+                                  th:selected="${(libelleregion!=null && libelleregion!='' && libelleregion==region.libelle)}"
+                          ></option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-lg-12 mb-3">
+                      <div class="form-group bootstrapMultipleSelectDiv">
+                        <select id="bootstrapMultipleSelect" name="tags" multiple class="form-control">
+                          <option
+                                  value="" disabled hidden
+                                  th:text="${(allTags.size>0) ? 'Sélectionner un ou des tags' : 'Aucun tag disponible.'}"
+                          ></option>
+                          <div th:if="${(allTags.size>0)}">
+                            <option
+                                    th:each="tag:${allTags}"
+                                    th:text="${tag.libelle}" th:value="${tag.id}"
+                                    th:selected="${(searchedTagsId!=null && searchedTagsId.size>0) && searchedTagsId.contains(tag.id)}"
+                            ></option>
+                          </div>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-lg-3">
+                      <button type="submit" class="find-btn">
+                        Rechercher
+                        <i class='bx bx-search'></i>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+                -->
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="account-details">
+                <h3>Liste des offres</h3>
+                <div
+                        th:if="${allOffers.size > 0}"
+                        class="listOffers row d-flex flex-column align-items-center"
+                >
+                  <div th:each="offer:${allOffers}" class="col-md-12">
+                    <div class="job-card">
+                      <div class="row align-items-center">
+                        <div class="col-lg-2">
+                          <div class="job-save">
+                            <span th:if="${(offer.etat == 'PUBLISHED' || offer.etat == 'ENABLED')}" class="w-100 mb-1 fontsize-13">Publiée</span>
+                            <span th:if="${(offer.etat == 'FINISHED')}" class="w-100 mb-1 fontsize-13">A pris fin</span>
+                            <span th:if="${(offer.etat!='PUBLISHED' && offer.etat!='ENABLED' && offer.etat!='FINISHED')}" class="w-100 mb-1 fontsize-13">Non Publiée</span>
+                          </div>
+                          <div class="thumb-img">
+                            <a th:href="@{/offer/__${offer.id}__}">
+                              <img
+                                      th:if="${offer!=null && offer.imageLocation!=null}"
+                                      th:src="@{'__${offer.imageLocation}__'}"
+                                      class="w-100"
+                                      alt="Offer Image"
+                              >
+                              <img
+                                      th:unless="${offer!=null && offer.imageLocation!=null}"
+                                      th:src="@{/assets/frontend/img/img-icon.png}" alt="Offer Image"
+                              >
+                              <img
+                                      th:if="${offer!=null && offer.imageLocation==null && offer.author!=null && offer.author.company!=null && offer.author.company.logoLocation!=null }"
+                                      th:src="@{'__${offer.author.company.logoLocation}__'}"
+                                      class="w-100"
+                                      alt="Offer Image"
+                              >
+                            </a>
+                          </div>
+                        </div>
+                        <div class="col-lg-6 pr-0">
+                          <div class="job-info">
+                            <div class="d-flex flex-row align-items-center mb-2">
+                              <h3 class="mb-0">
+                                <a th:href="@{/offer/__${offer.id}__}"
+                                   th:text="${(offer.libelle!='' && offer.libelle.length>35) ? offer.libelle.substring(0,35)+' ...' : offer.libelle}"
+                                ></a>
+                              </h3>
+                            </div>
+                            <div class="d-flex flex-row align-items-center mb-1">
+                              <div class="mr-2">
+                                Par
+                                <a
+                                        th:if="${offer.author.company == null}"
+                                        th:href="@{'/user_account/details_profile?id=__${offer.author.id}__'}"
+                                        th:text="${offer.author.firstname}+' '+${offer.author.lastname}"
+                                        target="_blank"
+                                ></a>
+                                <a
+                                        th:if="${offer.author.company!=null && offer.author.company.websitelink!=''}"
+                                        th:href="${offer.author.company.websitelink}"
+                                        th:text="${offer.author.company.name}"
+                                        target="_blank"
+                                ></a>
+                                <strong th:if="${offer.author.company!=null && offer.author.company.websitelink==''}" th:text="${offer.author.company.name}"></strong>
+                                <strong th:if="${((offer.author==null) || (offer.author.firstname=='' && offer.author.lastname=='')) && offer.author.company==null}">
+                                  Anonyme
+                                </strong>
+                              </div>
+
+                              <!--
+                              <div class="d-flex flex-row align-items-center">
+                                <i class='bx bx-location-plus'></i>
+                                <span th:text="${offer.region.libelle}+', CAMEROUN'"></span>
+                              </div>
+                              -->
+
+                            </div>
+                            <div class="d-flex flex-row">
+                              <div class="mr-2">
+                                <i class='bx bx-briefcase'></i>
+                                <span th:text="${offer.typeOffre.libelle}"></span>
+                              </div>
+                              <div>
+                                <i class='bx bx-filter-alt'></i>
+                                <span th:text="${offer.activitySector.libelle}"></span>
+                              </div>
+                            </div>
+
+                            <!--
+                            ---- Pour les tags
+                            <div th:if="${offer.tags.size>0}" class="d-flex flex-row">
+                                                            <span
+                                                                    class="mr-1"
+                                                                    th:each="tag:${offer.tags}"
+                                                                    th:text="${tag.libelle+', '}"
+                                                            ></span>
+                            </div>
+                            <div th:unless="${offer.tags.size>0}" class="d-flex flex-row">
+                              <span>Aucun tag</span>
+                            </div>
+
+                            ----- Pour : Region, typeOffre
+
+                            <ul>
+                                <li>
+                                    <i class='bx bx-location-plus'></i>
+                                    <span th:text="${offer.region.libelle}+', CAMEROUN'"></span>
+                                </li>
+                                <li>
+                                    <i class='bx bx-filter-alt'></i>
+                                    <span th:text="${offer.activitySector.libelle}"></span>
+                                </li>
+                                <li>
+                                    <i class='bx bx-briefcase'></i>
+                                    <span th:text="${offer.typeOffer.libelle}"></span>
+                                </li>
+                                <li th:if="${offer.tags.size>0}">
+                                    <p>
+                                            <span
+                                                    class="mr-1"
+                                                    th:each="tag:${offer.tags}"
+                                                    th:text="${tag.libelle+', '}"
+                                            ></span>
+                                    </p>
+                                </li>
+                                <li th:unless="${offer.tags.size>0}">
+                                    Aucun tag
+                                </li>
+                            </ul>
+                            -->
+
+                          </div>
+                        </div>
+                        <div class="col-lg-4">
+                          <div class="job-save">
+                            <p th:if="${offer.etat == 'ENABLED'}">
+                              Publiée
+                              <h7 th:text="${'le '+#dates.format(offer.dateDePublication, 'dd MMMM yyyy')}"></h7>
+                            </p>
+                            <p th:if="${offer.etat == 'FINISHED'}">
+                              <strong>
+                                A pris fin
+                                <h7 th:text="${'le '+#dates.format(offer.dateExpiration, 'dd MMMM yyyy')}"></h7>
+                              </strong>
+                            </p>
+                            <p th:unless="${offer.etat == 'FINISHED'}">
+                              <strong>
+                                Prend fin
+                                <h7 th:text="${'le '+#dates.format(offer.dateExpiration, 'dd MMMM yyyy')}"></h7>
+                              </strong>
+                            </p>
+                            <div class="d-flex flex-column">
+                              <a th:href="@{/offer/__${offer.id}__}">Voir offre</a>
+                              <form
+                                      th:if="${offer.etat != 'FINISHED'}"
+                                      th:action="@{/recruiter/manage_offers/toogle_offers}" method="post"
+                                      class="pb-0 mb-0 b-bottom-0"
+                                      style="border:0"
+                              >
+                                <input type="text" name="idoffer" th:value="${offer.id}" hidden>
+                                <button
+                                        th:if="${(offer.etat == 'PUBLISHED')}"
+                                        type="submit"
+                                        class="color-primary-blue primary-color-on-hover mb-0 pb-0"
+                                >
+                                  Ne plus publier
+                                </button>
+                                <button
+                                        th:if="${(offer.etat == 'CREATED')}"
+                                        type="submit"
+                                        class="color-primary-blue primary-color-on-hover mb-0 pb-0"
+                                >
+                                  Publier
+                                </button>
+                              </form>
+                              <!--
+                              -- Bouton liste des candidats
+                              <a
+                                      th:if="${(allOffersWhichHaveCandidates.size > 0 && allOffersWhichHaveCandidates.contains(offer))}"
+                                      th:href="@{/recruiter/offer/candidates(idoffer=${offer.id})}"
+                              >
+                                Liste des candidats
+                              </a>
+                              -->
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div th:unless="${allOffers.size > 0}">
+                  <h3>Aucune offre disponible</h3>
+                </div>
+
+                <!--
+                ---- Pagination
+                <nav aria-label="Page navigation example" th:if="${totalPages > 1}">
+                  <ul class="pagination justify-content-center">
+                    <li th:if="${(currentPage - 1) != 0}" class="page-item">
+                      <a th:href="@{ '/recruiter/manage_offers/page/' + ${currentPage - 1} }" class="page-link" aria-disabled="true">
+                        <i class='bx bx-chevrons-left bx-fade-left'></i>
+                      </a>
+                    </li>
+                    <li th:each="i: ${#numbers.sequence(1, totalPages)}" class="page-item">
+                      <a th:if="${currentPage != i}" th:href="@{'/recruiter/manage_offers/page/' + ${i} }" class="page-link">[[${i}]]</a>
+                      <span th:unless="${currentPage != i}" class="page-link active">[[${i}]]</span>
+                    </li>
+                    <li th:if="${currentPage < totalPages}" class="page-item">
+                      <a th:href="@{ '/recruiter/manage_offers/page/' + ${currentPage + 1} }" class="page-link">
+                        <i class='bx bx-chevrons-right bx-fade-right'></i>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+                -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- End Main Content -->
+
+<th:block th:replace="fragments/frontend/fragment_footer :: footer" />
+
+<th:block th:replace="fragments/frontend/fragment_script :: script" />
+
+
+</body>
+</html>

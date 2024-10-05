@@ -1,0 +1,681 @@
+/* Common style */
+.fontsize-13 {
+    font-size: 13px !important;
+}
+.ptb-50 {
+    padding-top: 70px;
+    padding-bottom: 50px;
+}
+.pt-70 {
+    padding-top: 70px
+}
+.pt-50 {
+    padding-top: 50px
+}
+.pt-30 {
+    padding-top: 30px
+}
+.pt-20 {
+    padding-top: 20px
+}
+.pb-70 {
+    padding-bottom: 70px
+}
+.pb-50 {
+    padding-bottom: 50px
+}
+.pb-30 {
+    padding-bottom: 30px
+}
+.pb-20 {
+    padding-bottom: 20px
+}
+.pr-2px {
+    padding-right: 2px !important;
+}
+.pl-2px {
+    padding-left: 2px !important;
+}
+.b-bottom-0 {
+    border-bottom: 0px;
+}
+.b-bottom-1-black {
+    border-bottom: 1px solid #000000;
+}
+.b-radius-0 {
+    border-radius: 0px!important;
+}
+.b-radius-5Opx {
+    border-radius: 50px!important;
+}
+.box-shadow-none {
+    box-shadow: none;
+    -webkit-box-shadow: none;
+}
+.color-primary-blue {
+    color: #0a7efd !important;
+}
+.color-primary-red {
+    color: #fd1717;
+}
+.bColor-project-primaryGray {
+    background-color: #f9f6f6;
+}
+.borderForJobCard {
+    border: 1px dashed #fdd6cc;
+}
+.theme-btn .default-btn {
+    padding: 5px 15px;
+}
+.simple-account-btn {
+    font-size: 15px;
+}
+.simple-account-btn:hover {
+    color: #fff !important;
+}
+.overflowYForScroll {
+    overflow-y: scroll ;
+}
+.finished-offer {
+    border:1px dashed #f9f9f9;
+    background-color: #f9f9f9 !important;
+}
+.account-details .table tbody .dropdown .dropdown-menu a,
+.account-details .table tbody .dropdown .dropdown-menu a:hover {
+    color: #000000;
+}
+.job-details-text .details-text .table tr td a{
+    color:#007bff; !important;
+}
+nav.navbar #navbarSupportedContent .other-option li.nav-item a .user-img > img {
+    background-color: #ffffff;
+    padding: 4px;
+}
+.dynamicPanelCustomStyle .nav-pills .nav-link.active, .dynamicPanelCustomStyle .nav-pills .show>.nav-link {
+    background-color: #fd1616;
+    color: #fff;
+}
+.dynamicPanelCustomStyle .nav-pills .nav-item > a {
+    color: #000000;
+    border: 1px solid #fd1717;
+    text-align: center;
+}
+.find-form .find-btn {
+    font-size: 14px;
+    padding: 0 10px;
+    height: 40px;
+}
+.banner-section .banner-content .banner-form .form-group .multiselect-search {
+    border-radius: 0;
+}
+/* style for page-title section */
+.page-title {
+    padding-top: 35px;
+    padding-bottom: 35px;
+}
+.page-title h2 {
+    font-size: 35px;
+}
+.page-title ul {
+    font-size: 15px;
+}
+
+/* style for job-card-two */
+.job-card-two {
+    padding: 10px 20px;
+    margin-bottom: 10px;
+    /* height: 200px; */
+}
+.job-card {
+    padding: 20px;
+    margin-bottom: 25px;
+}
+.job-card-two .job-info {
+    padding-left: 55px;
+}
+.job-card-two .job-info h3, .job-card .job-info h3 {
+    font-size: 16px
+}
+.job-card-two .job-info ul, .job-card .job-info ul {
+    margin-bottom: 5px;
+}
+.job-card-two .job-info ul li, .job-card .job-info ul li {
+    font-size: 14px;
+}
+.job-card-two .job-info p, .job-card .job-info p {
+    font-size: 14px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.job-card-two .job-info span, .job-card .job-info span {
+    margin-bottom: 0;
+}
+.job-card-two .theme-btn .default-btn, .job-card .theme-btn .default-btn {
+    font-size: 15px;
+}
+.job-details-text .job-card .company-logo {
+    background: none;
+    width: 100%;
+}
+.job-details-text .job-card .company-logo > img {
+    width: 100%;
+    height: 100px;
+}
+
+
+/* style for searchOfferForm */
+.searchOfferForm.find-form {
+    padding: 15px 30px;
+}
+
+/* style for listOffers */
+.listOffers .job-card {
+    background: #d0caca45;
+    border: 1px dashed #d0caca45;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+.listOffers .job-card:hover {
+    border: 1px dashed #000000;
+}
+.listOffers .job-card .job-save a {
+    font-size: 15px;
+}
+.listOffers .job-card .job-info h3 {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+.listOffers .job-card .job-info ul {
+    margin-bottom: 0;
+}
+
+
+/* common form input style and custom style for nice select element and Bootstrap multipleSelect element */
+.nice-select .list {
+    overflow-y: scroll;
+    max-height: 200px;
+}
+.multiselect-container {
+    overflow-y: scroll;
+    max-height: 300px;
+}
+.customFormInputStyle .form-group input.form-control,
+.customFormInputStyle .form-group textarea.form-control {
+    border-radius: 50px;
+    background-color: #f9f6f6;
+}
+.customFormInputStyle .nice-select {
+    border-radius: 50px;
+    background-color: #f9f6f6;
+    border: 1px solid #ced4da;
+}
+.customFormInputStyle .nice-select > span {
+    color: #000000;
+}
+.customFormInputStyle .nice-select .option.disabled {
+    display: none;
+}
+/* TinyMCE editor custom style */
+.tox-tinymce {
+    border-radius: 15px;
+}
+form .tox.tox-tinymce .tox-edit-area iframe.tox-edit-area__iframe {
+    background-color: #f9f6f6;
+}
+
+
+
+/* Style for 'img profile element' in the header */
+.header-navbar-rht {
+    display: flex;
+    margin: 0;
+    list-style: none;
+    padding: 0
+}
+.header-navbar-rht li {
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    padding-right: 20px;
+    justify-content: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+}
+.header-navbar-rht li:last-child {
+    padding-right:0px;
+}
+.header-navbar-rht li .dropdown-menu {
+    border: 0;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+    min-width: 13rem;
+}
+.header-navbar-rht .dropdown-toggle::after {
+    display: none;
+}
+.header-navbar-rht li .dropdown-menu::before {
+    content: "";
+    position: absolute;
+    top: 1px;
+    right: 10px;
+    border: 7px solid #fff;
+    border-color: transparent transparent #ffffff #ffffff;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    -webkit-transform: rotate(135deg);
+    transform: rotate(135deg);
+    box-shadow: -2px 2px 2px -1px rgba(0, 0, 0, 0.1);
+}
+.header-navbar-rht li .dropdown-menu .dropdown-item {
+    border-top: 1px solid #f0f0f0;
+    padding: 10px 15px;
+}
+.header-navbar-rht li .dropdown-menu .dropdown-item:first-child {
+    border-top: 0;
+    border-radius: 5px 5px 0 0;
+}
+.header-navbar-rht li .dropdown-menu .dropdown-item:last-child {
+    border-radius: 0 0 5px 5px;
+}
+.header-navbar-rht li a.header-login:hover {
+    background-color: #09e5ab;
+    border-color: #09e5ab;
+    color: #fff;
+}
+.header-navbar-rht li .dropdown-menu a {
+    padding-left: 25px;
+}
+.header-navbar-rht li .dropdown-menu a:hover {
+    color: #fd1616;
+    letter-spacing: 0.5px;
+    background-color: #fff;
+}
+.header-navbar-rht li a.header-login {
+    border: 2px solid #09e5ab;
+    border-radius: 4px;
+    padding: 10px 15px !important;
+    text-align: center;
+    font-size: 15px;
+    color: #09e5ab;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+.user-header {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.user-header .avatar.avatar-sm {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 65%;
+}
+.user-header .avatar.avatar-sm > img{
+    width: 100%;
+}
+
+.user-header .user-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 15px 0 5px 0;
+}
+
+.job-card .job-description {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.job-card .job-description p {
+    text-align: center;
+}
+.job-card .job-save .date-publication {
+    display: flex;
+    flex-direction: row;
+}
+
+
+/* Style for 'dynamic panel' in the form on the register page */
+#registerPagePanel {
+    padding: 5px;
+}
+#registerPagePanel .signup-form.customFormInputStyle {
+    padding: 30px 40px;
+}
+#registerPagePanel .signup-form .idActivitySector  {
+    margin-bottom: 15px !important;
+}
+#registerPagePanel .nav-pills .nav-link {
+    text-align: center;
+}
+#registerPagePanel .nav-pills .nav-item {
+    width: 50%;
+}
+#registerPagePanel .nav-pills .nav-item > a {
+    border-radius: 50px;
+}
+#registerPagePanel .tab-content .tab-pane {
+    padding: 0 5px;
+}
+
+
+/* Style for 'dynamic panel' in the page 'profile-settings' */
+#profileSettingsPagePanel .nav-pills .nav-item {
+    flex: 1 1 0;
+    margin-right: 2px;
+}
+
+/* Style for 'show cv' page for user Candidate */
+#pageShowCV.resume-section .resume-area .resume-content.basic-info-text ul li span {
+    width: 40%;
+    margin-right: 15px;
+}
+
+/* Style for 'search offer' page */
+.searchOfferPage .job-style-two {
+    width: 100%;
+    padding-top: 110px;
+    min-height: 100%;
+}
+.searchOfferPage .job-card-two .job-info ul li {
+    padding-right: 6px;
+}
+.searchOfferPage .overflowYForScroll {
+    height: 85vh;
+}
+.searchOfferPage .overflowYForScroll > div {
+    position: absolute;
+    height: auto;
+    z-index: 1;
+}
+.searchOfferPage .find-section {
+    background-color: #fdf8f7;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+.searchOfferPage .find-section:before,
+.searchAcutalitiesPage .find-section:before,
+.searchAnnouncementPage .find-section:before {
+    position: absolute;
+    content: '';
+    background-image: url(../img/shape/job.png);
+    background-position: center center;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: .02;
+}
+.searchOfferPage .find-form {
+    padding: 15px 30px;
+}
+.searchOfferPage .find-form .nice-select {
+    height: 40px;
+    padding: 0 15px;
+}
+.searchOfferPage .find-form .nice-select .current {
+    font-size: 12px;
+}
+.searchOfferPage .job-card-two .company-logo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #ffffff;
+    width: 75px;
+    height: 75px;
+}
+.searchOfferPage .searchOfferForm.find-form .bootstrapMultipleSelectDiv .multiselect.custom-select {
+    height: 40px;
+}
+.searchOfferPage .searchOfferForm.find-form .bootstrapMultipleSelectDiv .multiselect.custom-select .multiselect-selected-text {
+    font-size: 12px;
+}
+.searchOfferPage .find-form .find-btn {
+    height: 40px;
+    padding: 0px;
+}
+
+.searchOfferForm .multiselect-native-select {
+    width: 100%;
+}
+.searchOfferForm .bootstrapMultipleSelectDiv .nice-select {
+    display: none;
+}
+.searchOfferForm.find-form .bootstrapMultipleSelectDiv .multiselect.custom-select {
+    text-align: left;
+}
+.searchOfferForm.find-form .bootstrapMultipleSelectDiv .multiselect.custom-select .multiselect-selected-text {
+    font-size: 12px;
+    font-weight: 500;
+    color: #707070;
+}
+.searchOfferForm.find-form .bootstrapMultipleSelectDiv .multiselect-container .multiselect-filter .multiselect-search {
+    margin-left: 0;
+    padding-left: 1.5rem;
+}
+.searchOfferForm.find-form .bootstrapMultipleSelectDiv .multiselect-container {
+    width: 100%;
+}
+
+/* Custom style for list in manage page */
+.account-details table.table .theme-btn .default-btn {
+    font-size: 15px;
+    padding: 4px 10px;
+    border: 0;
+}
+
+/* Custom style for save offer page */
+#saveOfferPage .selectTagsListForOffer .nice-select {
+    display: none;
+}
+#saveOfferPage .selectTagsListForOffer .custom-select.form-control .multiselect-selected-text {
+    color: #000000;
+}
+#saveOfferPage .selectTagsListForOffer .multiselect-container .multiselect-filter > .fa-search {
+    display: none;
+}
+#saveOfferPage .selectTagsListForOffer .multiselect-container .multiselect-filter > input.multiselect-search {
+    border-bottom: 0;
+    border-radius: 0;
+    margin-left: 0;
+}
+
+/* style for home page */
+#homePage .use-section .section-title h2 {
+    max-width: 90%;
+}
+#homePage .category-card {
+    height: 200px;
+}
+#homePage .category-card h3 {
+    overflow-wrap: break-word;
+}
+#homePage .banner-section .banner-content .banner-form {
+    padding: 30px 15px;
+}
+#homePage .banner-section .banner-content .banner-form.find-form .nice-select .current {
+    font-size: 12px;
+}
+#homePage .activitySector-owl-carousel .owl-stage-outer {
+    padding: 15px 0;
+}
+#homePage .company-owl-carousel .owl-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+#homePage .searchOfferForm.find-form .bootstrapMultipleSelectDiv .multiselect.custom-select .multiselect-selected-text {
+    font-size: 12px;
+}
+#homePage .company-section .section-title {
+    margin-bottom: 80px;
+}
+#homePage .company-card {
+    padding: 15px;
+}
+#homePage .company-card .company-logo {
+    margin-bottom: 10px;
+}
+#homePage .owl-carousel .owl-item img {
+    height: 190px;
+}
+
+/* Style for 'search announcement' page */
+.searchAnnouncementPage .overflowYForScroll {
+    height: 85vh;
+}
+.searchAnnouncementPage .overflowYForScroll > div {
+    position: absolute;
+    height: auto;
+    z-index: 1;
+    background-color: #ffffff;
+}
+.searchAnnouncementPage .find-section {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+.searchAnnouncementPage .blog-section {
+    width: 100%;
+    padding-top: 105px;
+}
+.searchAnnouncementPage .blog-card {
+    height: 360px;
+}
+.searchAnnouncementPage .blog-card .blog-text {
+    padding: 10px 20px;
+}
+.searchAnnouncementPage .blog-card .blog-text h3 {
+    font-size: 15px;
+}
+.searchAnnouncementPage .blog-card .blog-text p {
+    font-size: 15px;
+}
+.searchAnnouncementPage .blog-card .blog-text .blog-btn {
+    font-size: 15px;
+}
+.searchAnnouncementPage .searchOfferForm .form-group input {
+    color: #707070;
+    font-weight: 500;
+}
+.searchAnnouncementPage .searchOfferForm .form-group input::placeholder {
+    font-size: 12px;
+}
+
+/* Style for 'search actualities' page */
+.searchAcutalitiesPage .overflowYForScroll {
+    height: 85vh;
+}
+.searchAcutalitiesPage .overflowYForScroll > div {
+    position: absolute;
+    height: auto;
+    z-index: 1;
+    background-color: #ffffff;
+}
+.searchAcutalitiesPage .find-section {
+    padding-top: 30px;
+    padding-bottom: 10px;
+}
+.searchAcutalitiesPage .blog-section {
+    width: 100%;
+    padding-top: 115px;
+}
+.searchAcutalitiesPage .blog-card {
+    min-height: 320px;
+    padding-top: 15px;
+}
+.searchAcutalitiesPage .blog-card .blog-text h3 {
+    font-size: 15px;
+}
+.searchAcutalitiesPage .blog-card .blog-text p {
+    font-size: 15px;
+}
+
+/* style for announcement details page */
+#actualityDetailsPage .job-details-text .job-card .company-logo {
+    height: 265px;
+}
+#actualityDetailsPage .job-details-text .job-card .company-logo > img {
+    height: 100%;
+}
+
+/* style for announcement details page */
+#announcementDetailsPage .job-details-text .job-card .company-logo {
+    height: 265px;
+}
+#announcementDetailsPage .job-details-text .job-card .company-logo > img {
+    height: 100%;
+}
+
+/* style for manage offers page */
+#manageOffersPage .overflowYForScroll {
+    height: 87vh;
+}
+#manageOffersPage .searchOfferForm.find-form {
+    padding: 15px 20px;
+}
+#manageOffersPage .find-form .nice-select {
+    height: 40px;
+    line-height: 35px;
+    padding: 0 20px;
+}
+#manageOffersPage .custom-select {
+    line-height: 1;
+}
+#manageOffersPage .searchOfferForm.find-form .bootstrapMultipleSelectDiv .multiselect.custom-select {
+    height: 40px;
+}
+#manageOffersPage .find-form .find-btn {
+    font-size: 14px;
+}
+
+/* style for show applied offers page */
+#showAppliedOfferPage .overflowYForScroll {
+    height: 87vh;
+}
+#showAppliedOfferPage .searchOfferForm.find-form {
+    padding: 15px 20px;
+}
+#showAppliedOfferPage .custom-select {
+    line-height: 1;
+}
+#showAppliedOfferPage .find-form .nice-select {
+    height: 35px;
+    line-height: 35px;
+    padding: 0 20px;
+}
+#showAppliedOfferPage .searchOfferForm.find-form .bootstrapMultipleSelectDiv .multiselect.custom-select {
+    height: 35px;
+}
+#showAppliedOfferPage .find-form .find-btn {
+    font-size: 14px;
+    padding: 10px;
+}
+#showAppliedOfferPage .job-card .thumb-img img {
+    max-width: 80px;
+}
+
+#userProfileSettingsPage form.customFormInputStyle .nice-select {
+    height: 40px;
+    line-height: 40px;
+}
+#userProfileSettingsPage form.customFormInputStyle .nice-select .list {
+    width: 100%;
+}
+#userProfileSettingsPage form.customFormInputStyle .nice-select > span {
+    color: #495057;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+/* style for signin and signup page */
+.signin-section {
+    padding: 45px 0 60px 0;
+}
+.signup-section {
+    padding: 45px 0;
+}

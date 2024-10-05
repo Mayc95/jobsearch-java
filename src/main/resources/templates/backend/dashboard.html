@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="fragments/backend/fragment_meta :: meta"/>
+
+<th:block th:replace="fragments/backend/fragment_head :: head('Home')" />
+
+<body >
+<!--
+<th:block th:replace="fragments/fragment_navbar :: navbar" />-->
+
+<div class="loader"></div>
+
+<div id="app">
+    <div class="main-wrapper main-wrapper-1">
+        <div class="navbar-bg"></div>
+
+        <th:block th:replace="fragments/backend/fragment_navbar :: navbar" />
+
+        <th:block th:replace="fragments/backend/fragment_dashbaord_sidebar :: dashboard_sidebar" />
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <section class="section">
+                <ul class="breadcrumb breadcrumb-style ">
+                    <li class="breadcrumb-item">
+                        <h4 class="page-title m-b-0">Dashboard</h4>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a th:href="@{/}">
+                            <i data-feather="home"></i>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item active">Dashboard</li>
+                </ul>
+
+                <div id="statsSlider1" class="owl-carousel owl-theme">
+
+                    <div class="">
+                        <a th:href="@{/backend/admin/actuality}" class="gray-color">
+                            <div class="card card-statistic-1">
+                                <div class="card-icon l-bg-purple">
+                                    <i class="fas fa-newspaper"></i>
+                                </div>
+                                <div class="card-wrap">
+                                    <div class="padding-20">
+                                        <div class="text-right">
+                                            <h3 class="font-light mb-0">
+                                                <i class="ti-arrow-up text-success"></i>[[ ${countActu} ]]
+                                            </h3>
+                                            <span class="text-muted">Actualités</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="">
+                        <a th:href="@{/backend/admin/ads}" class="gray-color">
+                            <div class="card card-statistic-1">
+                                <div class="card-icon l-bg-green">
+                                    <i class="fab fa-readme"></i>
+                                </div>
+                                <div class="card-wrap">
+                                    <div class="padding-20">
+                                        <div class="text-right">
+                                            <h3 class="font-light mb-0">
+                                                <i class="ti-arrow-up text-success"></i>[[ ${countAds} ]]
+                                            </h3>
+                                            <span class="text-muted">Annonces</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="">
+                        <a th:href="@{/backend/admin/company}" class="gray-color">
+                            <div class="card card-statistic-1">
+                                <div class="card-icon l-bg-orange">
+                                    <i class="far fa-building"></i>
+                                </div>
+                                <div class="card-wrap">
+                                    <div class="padding-20">
+                                        <div class="text-right">
+                                            <h3 class="font-light mb-0">
+                                                <i class="ti-arrow-up text-success"></i>[[ ${countCompanies} ]]
+                                            </h3>
+                                            <span class="text-muted">Entreprises</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="">
+                        <a th:href="@{/backend/admin/offer}" class="gray-color">
+                            <div class="card card-statistic-1">
+                                <div class="card-icon l-bg-red">
+                                    <i class="fas fa-suitcase"></i>
+                                </div>
+                                <div class="card-wrap">
+                                    <div class="padding-20">
+                                        <div class="text-right">
+                                            <h3 class="font-light mb-0">
+                                                <i class="ti-arrow-up text-success"></i>[[ ${countOffers} ]]
+                                            </h3>
+                                            <span class="text-muted">Offres</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="">
+                        <a th:href="@{/backend/admin/candidate}" class="gray-color">
+                            <div class="card card-statistic-1">
+                                <div class="card-icon l-bg-cyan">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="card-wrap">
+                                    <div class="padding-20">
+                                        <div class="text-right">
+                                            <h3 class="font-light mb-0">
+                                                <i class="ti-arrow-up text-success"></i>[[ ${countCandidate} ]]
+                                            </h3>
+                                            <span class="text-muted">Candidats</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="">
+                        <a th:href="@{/backend/admin/recruiter}" class="gray-color">
+                            <div class="card card-statistic-1">
+                                <div class="card-icon l-bg-cyan">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="card-wrap">
+                                    <div class="padding-20">
+                                        <div class="text-right">
+                                            <h3 class="font-light mb-0">
+                                                <i class="ti-arrow-up text-success"></i>[[ ${countRecruiter} ]]
+                                            </h3>
+                                            <span class="text-muted">Recruteur</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Actualités</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-striped" id="table-1">
+                                        <thead>
+                                        <tr>
+                                            <th class="text-center">#</th>
+                                            <th>Titre</th>
+                                            <th>Localisation</th>
+                                            <th>Social</th>
+                                            <th>Statut</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="a:${lastTenActuality}">
+                                            <td th:text="${a.id}"></td>
+                                            <td th:text="${a.title}"></td>
+                                            <td th:text="${a.localization}"></td>
+                                            <td th:text="${a.social_media_link}"></td>
+                                            <td>
+                                                <div th:switch="${a.state}">
+                                                    <span th:case="CREATED">Crée</span>
+                                                    <span th:case="POSTED">Postée</span>
+                                                    <span th:case="PUBLISHED">Publié</span>
+                                                    <span th:case="DISABLED">Désactivé</span>
+                                                </div>
+                                            </td>
+
+
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+
+
+        </div>
+
+
+
+    </div>
+</div>
+
+<th:block th:replace="fragments/backend/fragment_footer :: footer" />
+
+<th:block th:replace="fragments/backend/fragment_script :: script"/>
+
+
+</body>
+</html>

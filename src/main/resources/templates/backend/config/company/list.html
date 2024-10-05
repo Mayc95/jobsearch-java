@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="fragments/backend/fragment_meta :: meta"/>
+
+<th:block th:replace="fragments/backend/fragment_head :: head('Home')" />
+
+<body >
+<!-- <th:block th:replace="fragments/fragment_navbar :: navbar" />-->
+
+<div class="loader"></div>
+
+<div id="app">
+  <div class="main-wrapper main-wrapper-1">
+    <div class="navbar-bg"></div>
+
+    <th:block th:replace="fragments/backend/fragment_navbar :: navbar" />
+
+    <th:block th:replace="fragments/backend/fragment_dashbaord_sidebar :: dashboard_sidebar" />
+
+
+    <div class="main-content">
+      <section class="section">
+        <ul class="breadcrumb breadcrumb-style ">
+          <li class="breadcrumb-item">
+            <h4 class="page-title m-b-0">Entreprises</h4>
+          </li>
+
+        </ul>
+
+        <a th:href="@{/backend/config/company/add}" class="btn btn-primary mt-2 mb-2">Ajouter une entreprise</a>
+
+
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h4>Entreprises</h4>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-striped" id="table-1">
+                    <thead>
+                    <tr>
+                      <th>Logo</th>
+                      <th>Nom</th>
+                      <th>Description</th>
+                      <th>Site web</th>
+                      <th>Secteur d'activité</th>
+                      <th>Date de création</th>
+                      <th class="text-center">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:if="${allCompanies.size > 0}" th:each="c:${allCompanies}">
+                      <td align="center">
+                        <img th:if="c.logoLocation != null"  th:src="${'__${c.logoLocation}__'}" style="width: 50px;height: 50px"  id="preview" class="img-thumbnail">
+                        <img th:unless="c.logoLocation != null"  th:src="@{'/assets/backend/img/80x80.png'}" style="width: 50px;height: 50px"  id="preview" class="img-thumbnail">
+                      </td>
+                      <td th:if="${c.name!=''}" th:text="${(c.name.length>30) ? c.name.substring(0,30)+' ...' : c.name}"></td>
+                      <td th:if="${c.description != ''}" th:text="${(c.description.length > 30) ? c.description.substring(0,30)+' ...' : c.description}"></td>
+                      <td th:unless="${c.description != ''}">Pas encore renseignée</td>
+                      <td>
+                        <a th:if="${c.websitelink != ''}" th:href="${'http://__${c.websitelink}__'}" th:text="${(c.websitelink.length>30) ? c.websitelink.substring(0,30)+'...' : c.websitelink}" target="_blank"></a>
+                        <span th:unless="${c.websitelink != ''}">Pas encore définis</span>
+                      </td>
+
+                      <td th:text="${(c.activitySector!=null) ? c.activitySector?.libelle : 'Pas encore définis'}"></td>
+                      <td th:if="${c.dateDeCreation!=null}" th:text="${ 'Le '+#dates.format(c.dateDeCreation,'dd-MM-yyyy') }"></td>
+                      <td th:unless="${c.dateDeCreation!=null}">Pas encore définis</td>
+                      <td>
+
+                        <div class="dropdown d-inline mr-2">
+                          <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+                                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Actions
+                          </button>
+                          <div class="dropdown-menu">
+                            <div class="mr-2">
+                              <form method="post" th:action="@{/backend/config/company/update}">
+                                <input type="hidden" name="id" th:value="${c.id}">
+                                <button class="no-style dropdown-item dropdown-menu-btn">Modifier</button>
+                              </form>
+                            </div>
+                            <div class="mr-2">
+                              <form method="post" th:action="@{/backend/config/company/delete}">
+                                <input type="hidden" name="id" th:value="${c.id}">
+                                <button class="no-style dropdown-item dropdown-menu-btn">Supprimer</button>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+
+                      </td>
+                    </tr>
+                    <tr th:unless="${allCompanies.size > 0}">
+                      <h3>Aucunes entreprises enregistrées pour le moment</h3>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+
+
+    </div>
+
+
+
+
+  </div>
+</div>
+
+<th:block th:replace="fragments/backend/fragment_footer :: footer" />
+
+<th:block th:replace="fragments/backend/fragment_script :: script"/>
+
+
+</body>
+</html>

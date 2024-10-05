@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="fragments/backend/fragment_meta :: meta"/>
+
+<th:block th:replace="fragments/backend/fragment_head :: head('Home')" />
+
+<body >
+<!--
+<th:block th:replace="fragments/fragment_navbar :: navbar" />-->
+
+<div class="loader"></div>
+
+<div id="app">
+  <div class="main-wrapper main-wrapper-1">
+    <div class="navbar-bg"></div>
+
+    <th:block th:replace="fragments/backend/fragment_navbar :: navbar" />
+
+    <th:block th:replace="fragments/backend/fragment_dashbaord_sidebar :: dashboard_sidebar" />
+
+
+    <div class="main-content">
+      <section class="section">
+
+        <ul class="breadcrumb breadcrumb-style ">
+          <li class="breadcrumb-item">
+            <h4 class="page-title m-b-0">Offre</h4>
+          </li>
+        </ul>
+
+        <a th:href="@{/backend/offer}" class="btn btn-primary mt-2 mb-2">Liste des offres</a>
+        <div class="section-body">
+          <div class="row">
+
+            <div class="col-12 col-md-12 col-lg-12">
+              <div class="card">
+                <div class="card-header">
+                  <h4>Modifier une offre</h4>
+                </div>
+
+                <form method="post" enctype="multipart/form-data" th:action="@{/backend/offer/save}">
+                  <div class="card-body">
+
+                    <input th:if="${offer!=null}" type="text" hidden name="id" th:value="${offer.id}">
+
+                    <div class="form-row">
+                      <div class="form-group col-md-4">
+                        <label>Libelle</label>
+                        <input required type="text" th:value="${offer!=null ? offer.libelle : ''}" class="form-control" name="libelle"  placeholder="Libelle">
+                      </div>
+
+
+                      <div class="form-group col-md-4">
+                          <label>Date limite</label>
+                          <input required type="date" th:value="${(offer!=null && offer.dateExpiration!=null) ? #dates.format(offer.dateExpiration,'yyyy-MM-dd') : ''}" class="form-control" name="dateExpirationInString">
+                      </div>
+
+
+                      <div class="form-group col-md-4">
+                        <label>Localisation</label>
+                        <input  type="text" th:value="${offer!=null ? offer.localisation : ''}" class="form-control" name="localisation"  placeholder="Localisation">
+                      </div>
+
+                    </div>
+
+                    <div class="form-row">
+
+                      <div class="form-group col-md-4">
+                        <label >Secteur d'activité</label>
+                        <select  required class="form-control" name="activitySector">
+                          <option disabled selected>Choisissez une option</option>
+                          <option th:each="s:${sectors}" th:selected="${offer!=null && offer.activitySector!=null && s.id==offer.activitySector.id}" th:value="${s.id}" th:text="${s.libelle}"></option>
+                        </select>
+                      </div>
+
+                      <div class="form-group col-md-4">
+                        <label >Niveau d'etude</label>
+                        <select  required class="form-control" name="niveauScolaire">
+                          <option disabled selected>Choisissez une option</option>
+                          <option th:each="s:${schoolLevels}" th:selected="${offer!=null && offer.niveauScolaire!=null && s.id==offer.niveauScolaire.id}" th:value="${s.id}" th:text="${s.libelle}"></option>
+                        </select>
+                      </div>
+
+                      <div class="form-group col-md-4">
+                        <label >Niveau d'expérience</label>
+                        <select  required class="form-control" name="niveauExperience">
+                          <option disabled selected>Choisissez une option</option>
+                          <option
+                                  th:each="s:${levelExperiences}"
+                                  th:selected="${offer!=null && offer.niveauExperience!=null && s.id==offer.niveauExperience.id}"
+                                  th:value="${s.id}" th:text="${s.libelle}"
+                          ></option>
+                        </select>
+                      </div>
+
+                      <div class="form-group col-md-4">
+                        <label>Entreprise</label>
+                        <select name="company" class="form-control" required>
+                          <option value="" disabled selected hidden>Sélectionner une option</option>
+                          <option
+                                  th:each="c:${companies}"
+                                  th:text="${c.name}" th:value="${c.id}"
+                                  th:selected="${(offer!=null && offer.company.id==c.id)}"
+                          ></option>
+                        </select>
+                      </div>
+
+                    </div>
+
+                    <div class="form-row">
+
+                      <div class="form-group col-md-4">
+                        <label>Type Offre</label>
+                        <select  required class="form-control" name="typeOffre">
+                          <option disabled selected>Choisissez une option</option>
+                          <option th:if="${offer!=null && offer.typeOffre!=null}"  th:each="s:${typeOffres}" th:selected="${s.libelle == offer.typeOffre.libelle}" th:value="${s.id}" th:text="${s.libelle}"></option>
+                          <option th:unless="${offer!=null && offer.typeOffre!=null}"  th:each="s:${typeOffres}" th:value="${s.id}" th:text="${s.libelle}"></option>
+                        </select>
+                      </div>
+
+                      <div class="form-group col-md-4">
+                        <label>Salaire</label>
+                        <input type="text" class="form-control" th:value="${offer!=null ? offer.salaire : ''}" name="salaire"  placeholder="Salaire">
+                      </div>
+
+                      <div class="form-group col-md-4">
+                        <label>Langue</label>
+                        <input  type="text" class="form-control" th:value="${offer!=null ? offer.langue : ''}" name="langue"  placeholder="Langue">
+                      </div>
+
+                    </div>
+
+                    <div class="form-row">
+                      <div class="form-group col-md-12">
+                        <label>Description</label>
+                        <textarea class="summernote" th:text="${offer!=null ? offer.description : ''}" name="description" ></textarea>
+                      </div>
+                    </div>
+
+                    <div class="form-row">
+                      <div class="form-group col-md-12">
+                        <label>Profil</label>
+                        <textarea class="summernote" name="profil" ></textarea>
+                      </div>
+                    </div>
+
+                    <div class="form-row">
+
+                      <div class="ml-2 col-sm-6">
+
+                        <div th:if="${offer!=null && offer.imageLocation!=null}">
+                          <img  th:src="${'__${offer.imageLocation}__'}" style="width: 200px;height: 200px"  id="preview" class="img-thumbnail">
+                        </div>
+
+                        <div th:unless="${offer!=null && offer.imageLocation!=null}">
+                          <img  th:src="@{'/assets/backend/img/80x80.png'}" style="width: 200px;height: 200px"  id="preview" class="img-thumbnail">
+                        </div>
+                      </div>
+
+                      <div class="ml-2 col-sm-6">
+                        <div id="msg"></div>
+                        <input type="file" name="file"  class="file" accept="image/*">
+                        <div class="input-group my-3">
+                          <input type="text" class="form-control" disabled placeholder="Upload File" id="file">
+                          <div class="input-group-append">
+                            <input type="button" class="browse btn btn-primary" value="Browse" />
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                  <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">Modifier</button>
+                  </div>
+
+                </form>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+
+
+    </div>
+
+
+
+
+  </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('#summernote').summernote();
+    });
+</script>
+
+<th:block th:replace="fragments/backend/fragment_footer :: footer" />
+
+<th:block th:replace="fragments/backend/fragment_script :: script"/>
+
+
+</body>
+</html>

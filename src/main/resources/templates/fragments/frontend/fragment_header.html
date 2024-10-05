@@ -1,0 +1,103 @@
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="header">
+
+    <div class="loader-content">
+        <div class="d-table">
+            <div class="d-table-cell">
+                <div class="sk-circle">
+                    <div class="sk-circle1 sk-child"></div>
+                    <div class="sk-circle2 sk-child"></div>
+                    <div class="sk-circle3 sk-child"></div>
+                    <div class="sk-circle4 sk-child"></div>
+                    <div class="sk-circle5 sk-child"></div>
+                    <div class="sk-circle6 sk-child"></div>
+                    <div class="sk-circle7 sk-child"></div>
+                    <div class="sk-circle8 sk-child"></div>
+                    <div class="sk-circle9 sk-child"></div>
+                    <div class="sk-circle10 sk-child"></div>
+                    <div class="sk-circle11 sk-child"></div>
+                    <div class="sk-circle12 sk-child"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="navbar-area">
+
+        <div class="mobile-nav">
+            <a th:href="@{/}" class="logo">
+                <h3 style="color:#ffffff">ADEQUAT</h3>
+                <!--
+                <img th:src="@{/assets/frontend/img/logo.png}" alt="logo">
+                -->
+            </a>
+        </div>
+
+        <div class="main-nav">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg navbar-light">
+                    <a class="navbar-brand" th:href="@{/}">
+                        <h3 style="color:#ffffff">ADEQUAT</h3>
+                        <!-- <img th:src="@{/assets/frontend/img/logo.png}" alt="logo"> -->
+                    </a>
+                    <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
+                        <ul class="navbar-nav m-auto header-navbar-rht">
+                            <li class="nav-item">
+                                <a th:href="@{/}" class="nav-link" th:class="${(activeHeaderLink == '/') ? 'nav-link active' : 'nav-link'}">Accueil</a>
+                            </li>
+                            <li class="nav-item">
+                                <a th:href="@{/offer/search}" th:class="${(activeHeaderLink == '/search_offer') ? 'nav-link active' : 'nav-link'}">Emplois</a>
+                            </li>
+                            <li class="nav-item">
+                                <a th:href="@{/account}" th:class="${(activeHeaderLink == '/user_account') ? 'nav-link active' : 'nav-link'}">Mon Compte</a>
+                            </li>
+                            <li class="nav-item">
+                                <a th:href="@{/about}" th:class="${(activeHeaderLink == '/about') ? 'nav-link active' : 'nav-link'}">A Propos</a>
+                            </li>
+                            <li class="nav-item">
+                                <a th:href="@{/contact}" th:class="${(activeHeaderLink == '/contact') ? 'nav-link active' : 'nav-link'}">Contact</a>
+                            </li>
+                        </ul>
+                        <div class="other-option">
+                            <div th:if="${authenticatedUser == null}">
+                                <a th:href="@{/register}" class="signup-btn">S'inscrire</a>
+                                <a th:href="@{/login}" class="signin-btn">Se connecter</a>
+                            </div>
+
+                            <div th:if="${authenticatedUser != null}" class="header-navbar-rht">
+                                <li class="nav-item dropdown has-arrow logged-item">
+                                    <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                                        <span class="user-img">
+                                            <img th:if="${authenticatedUser.photoLink != null}" th:src="${authenticatedUser.photoLink}" alt="User Image" class="avatar-img rounded-circle" height="45">
+                                            <img th:unless="${authenticatedUser.photoLink != null}" th:src="@{/assets/frontend/img/user-icon.png}" alt="User Image" class="avatar-img rounded-circle" height="45">
+                                        </span>
+
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <div class="user-header">
+                                            <div class="avatar avatar-sm">
+                                                <img th:if="${authenticatedUser.photoLink != null}" th:src="${authenticatedUser.photoLink}" alt="User Image" class="avatar-img rounded-circle" height="150">
+                                                <img th:unless="${authenticatedUser.photoLink != null}" th:src="@{/assets/frontend/img/user-icon.png}" alt="User Image" class="avatar-img rounded-circle" height="150">
+                                            </div>
+                                            <div class="user-text">
+                                                <h6 th:text="${authenticatedUser.email}"></h6>
+                                                <div th:switch="${authenticatedUser.role.libelle}">
+                                                    <i th:case="'candidat'">(CANDIDAT)</i>
+                                                    <i th:case="'recruteur'">(RECRUTEUR)</i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a class="dropdown-item" th:href="@{/account}">Paramètre du profil</a>
+                                        <a class="dropdown-item" th:href="@{/logout}">Se déconnecter</a>
+                                    </div>
+                                </li>
+                            </div>
+
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+</div>

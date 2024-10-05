@@ -1,0 +1,55 @@
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="navbar">
+
+    <nav class="navbar navbar-expand-lg main-navbar sticky">
+        <div class="form-inline mr-auto">
+            <ul class="navbar-nav mr-3">
+                <li><a th:href="@{/}" data-toggle="sidebar" class="nav-link nav-link-lg
+									collapse-btn"> <i data-feather="menu"></i></a></li>
+
+            </ul>
+        </div>
+        <ul class="navbar-nav navbar-right">
+
+            <li class="dropdown"><a th:href="@{/}" data-toggle="dropdown"
+                                    class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+
+                <div th:if="${user!=null}">
+                    <img th:if="${user.profile_img !=''}" alt="image" style="width: 40px;height: 35px;margin-top: 20px" th:src="@{'/__${rootLocation}__/member/profileimg/__${user.profile_img}__'}"
+                         class="user-img-radious-style">
+                </div>
+
+                <div th:unless="${user!=null}">
+                    <img alt="image" th:src="@{/assets/backend/img/user.png}"
+                         class="user-img-radious-style">
+                </div>
+
+
+
+                <span class="d-sm-none d-lg-inline-block"></span></a>
+                <div class="dropdown-menu dropdown-menu-right pullDown">
+
+                    <div class="dropdown-title">
+                        <span th:text="${(user!=null) ? user.firstname + ' ' + user.lastname : 'Default'}"></span>
+                    </div>
+
+                    <a th:href="@{/backend/admin/profil}" class="dropdown-item has-icon">
+                        <i class="far fa-user"></i> Profile
+                    </a>
+
+                    <a th:href="@{/backend/admin/update-password}" class="dropdown-item has-icon">
+                        <i class="fas fa-bolt"></i>
+                        Modifier Mot de passe
+                    </a>
+
+                    <div class="dropdown-divider"></div>
+
+                    <a th:href="@{/logout}" class="dropdown-item has-icon text-danger"> <i class="fas fa-sign-out-alt"></i>
+                        Se déconnecter
+                    </a>
+
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+</div>

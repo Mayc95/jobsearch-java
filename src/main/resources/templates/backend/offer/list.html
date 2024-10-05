@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="fragments/backend/fragment_meta :: meta"/>
+
+<th:block th:replace="fragments/backend/fragment_head :: head('Home')" />
+
+<body >
+<!-- <th:block th:replace="fragments/fragment_navbar :: navbar" />-->
+
+<div class="loader"></div>
+
+<div id="app">
+    <div class="main-wrapper main-wrapper-1">
+        <div class="navbar-bg"></div>
+
+        <th:block th:replace="fragments/backend/fragment_navbar :: navbar" />
+
+        <th:block th:replace="fragments/backend/fragment_dashbaord_sidebar :: dashboard_sidebar" />
+
+
+        <div class="main-content">
+            <section class="section">
+                <ul class="breadcrumb breadcrumb-style ">
+                    <li class="breadcrumb-item">
+                        <h4 class="page-title m-b-0">Offres</h4>
+                    </li>
+
+                </ul>
+
+                <a th:href="@{/backend/offer/add}" class="btn btn-primary mt-2 mb-2">Ajouter une offre</a>
+
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Offres</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-striped" id="table-1">
+                                        <thead>
+                                        <tr>
+                                            <!--<th>Recruteur</th>-->
+                                            <th>Libelle</th>
+                                            <th>Date publication</th>
+                                            <th>Date limite</th>
+                                            <th>Salaire</th>
+                                            <th>Niveau Etude</th>
+                                            <th>Niveau Experience</th>
+                                            <th>Secteur Activité</th>
+                                            <th>Statut</th>
+                                            <th class="text-center">Actions</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        <tr th:each="a:${allOffer}">
+                                            <!-- <td th:text="${a.recruiter?.lastname +' '+ a.recruiter?.firstname}"></td> -->
+                                            <td th:if="${a.libelle!=''}" th:text="${(a.libelle.length>35) ? a.libelle.substring(0,30)+'...' : a.libelle }"></td>
+                                            <td th:unless="${a.libelle!=''}">Pas encore renseigné</td>
+                                            <td th:if="${a.dateDePublication!=null}" th:text="${ 'Le '+#dates.format(a.dateDePublication,'dd-MM-yyyy') }"></td>
+                                            <td th:unless="${a.dateDePublication!=null}">Pas encore renseignée</td>
+                                            <td th:if="${a.dateExpiration!=null}" th:text="${ 'Le '+#dates.format(a.dateExpiration,'dd-MM-yyyy') }"></td>
+                                            <td th:unless="${a.dateExpiration!=null}">Pas encore renseignée</td>
+                                            <td th:if="${a.salaire!=''}" th:text="${a.salaire}"></td>
+                                            <td th:unless="${a.salaire!=''}">Pas encore renseigné</td>
+                                            <td th:if="${a.niveauScolaire!=null}" th:text="${(a.niveauScolaire.libelle!='') ? a.niveauScolaire.libelle : 'Pas encore renseignée'}"></td>
+                                            <td th:unless="${a.niveauScolaire!=null}">Non définis</td>
+                                            <td th:if="${a.niveauExperience!=null}" th:text="${(a.niveauExperience?.libelle!='') ? a.niveauExperience?.libelle : 'Pas encore renseigné'}"></td>
+                                            <td th:unless="${a.niveauExperience!=null}">Non définis</td>
+                                            <td th:if="${a.activitySector!=null}" th:text="${(a.activitySector?.libelle!='') ? a.activitySector?.libelle : 'Pas encore renseigné'}"></td>
+                                            <td th:unless="${a.activitySector!=null}">Non définis</td>
+                                            <td>
+                                                <div th:switch="${a.etat}">
+                                                    <span th:case="ENABLED">Crée</span>
+                                                    <span th:case="CREATED">Crée</span>
+                                                    <span th:case="PUBLISHED">Publié</span>
+                                                    <span th:case="DISABLED">Désactivé</span>
+                                                    <span th:case="DELETED">Supprimé</span>
+                                                </div>
+                                            </td>
+
+                                            <td >
+
+                                                <div class="dropdown d-inline mr-2">
+                                                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+                                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        Actions
+                                                    </button>
+                                                    <div class="dropdown-menu">
+                                                        <!--
+                                                        <a th:if="${ @offerCandidateRepository.countAllByOfferId(a.id) >0 }" class="dropdown-item"  th:href="@{/backend/admin/offer/request-offer/{idoffer}(idoffer=${a.id}) }">Candidatures</a>
+                                                        -->
+                                                        <a class="dropdown-item"  th:href="@{/backend/offer/update/{id}(id=${a.id}) }">Modifier</a>
+                                                        <form method="post" th:action="@{/backend/offer/change-state}">
+                                                            <div th:switch="${a.etat}">
+                                                                <button th:case="DISABLED" class="no-style dropdown-item dropdown-menu-btn" >Publier</button>
+                                                                <button th:case="CREATED" class="no-style dropdown-item dropdown-menu-btn" >Publier</button>
+                                                                <button th:case="PUBLISHED" class="no-style dropdown-item dropdown-menu-btn" >Désactiver</button>
+                                                            </div>
+                                                            <input type="hidden" name="id" th:value="${a.id}">
+                                                        </form>
+                                                    </div>
+                                                </div>
+
+
+                                            </td>
+
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+
+
+        </div>
+
+
+
+
+    </div>
+</div>
+
+<th:block th:replace="fragments/backend/fragment_footer :: footer" />
+
+<th:block th:replace="fragments/backend/fragment_script :: script"/>
+
+
+</body>
+</html>

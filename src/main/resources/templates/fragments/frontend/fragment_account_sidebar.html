@@ -1,0 +1,192 @@
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="account_sidebar">
+
+    <!--
+    <div th:if="user!=null" class="account-information">
+        <div class="profile-thumb">
+            <img th:if="${(user != null) && (user.profile_img != '')}" th:src="@{'/__${rootLocation}__/member/profileimg/__${user.profile_img}__'}" alt="account holder image" width="150">
+            <img th:unless="${(user != null) && (user.profile_img != '')}" th:src="@{/assets/frontend/img/user-icon.png}" alt="account holder image" width="150">
+            <h3 th:text="${user != null ? (user.firstname+' '+user.lastname) : 'John Doe'}"></h3>
+            <p th:switch="${user.getUserRoleName()}">
+                <span th:case="'RECRUITER'">Recruteur</span>
+                <span th:case="'CANDIDATE'">Candidat</span>
+            </p>
+        </div>
+        <div th:if="${user != null}" th:switch="${user.getUserRoleName()}">
+            <ul th:case="'RECRUITER'">
+                <li>
+                    <a th:href="@{/user_account}" th:class="${(activeAccountSidebarLink == '/user_account') ? 'active' : ''}">
+                        <i class='bx bx-user'></i>
+                        Paramètre du profil
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/recruiter/manage_offers}" th:class="${(activeAccountSidebarLink == '/recruiter/manage_offers') ? 'active' : ''}">
+                        <i class="bx bx-briefcase"></i>
+                        Mes offres
+                    </a>
+                </li>
+
+                <li th:if="${user.canPostAds}" >
+                    <a th:href="@{/user_account/manage_announcements}" th:class="${(activeAccountSidebarLink == '/user_account/manage_announcements') ? 'active' : ''}">
+                        <i class="bx bx-briefcase"></i>
+                        Mes annonces
+                    </a>
+                </li>
+
+                <li th:if="${user.canPostActuality}" >
+                    <a th:href="@{/user_account/manage_actualities}" th:class="${(activeAccountSidebarLink == '/user_account/manage_actualities') ? 'active' : ''}">
+                        <i class="bx bx-briefcase"></i>
+                        Mes actualités
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/user_account/change_password}" th:class="${(activeAccountSidebarLink == '/user_account/change_password') ? 'active' : ''}">
+                        <i class='bx bx-lock-alt'></i>
+                        Changer le mot de passe
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/account/logout}">
+                        <i class='bx bx-log-out'></i>
+                        Déconnexion
+                    </a>
+                </li>
+
+                <li>
+                    <a th:href="@{/user_account/manage_tags}">
+                        <i class="bx bx-briefcase"></i>
+                        Mes Tags
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <i class='bx bx-coffee-togo'></i>
+                        Supprimer son compte
+                    </a>
+                </li>
+            </ul>
+            <ul th:case="'CANDIDATE'">
+                  <li>
+                      <a th:href="@{/user_account}" th:class="${(activeAccountSidebarLink == '/user_account') ? 'active' : ''}">
+                            <i class='bx bx-user'></i>
+                            Paramètre du profil
+                      </a>
+                  </li>
+                  <li>
+                      <a th:href="@{/candidate/show_cv}" th:class="${(activeAccountSidebarLink == '/candidate/show_cv') ? 'active' : ''}">
+                        <i class='bx bxs-file-doc'></i>
+                         Mes CV
+                      </a>
+                  </li>
+                  <li>
+                      <a th:href="@{/candidate/applied_offers}" th:class="${(activeAccountSidebarLink == '/candidate/applied_offers') ? 'active' : ''}">
+                          <i class="bx bx-briefcase"></i>
+                          Offres
+                      </a>
+                  </li>
+
+                  <li th:if="${user.canPostAds}">
+                      <a th:href="@{/user_account/manage_announcements}" th:class="${(activeAccountSidebarLink == '/user_account/manage_announcements') ? 'active' : ''}">
+                          <i class="bx bx-briefcase"></i>
+                          Mes annonces
+                      </a>
+                  </li>
+                  <li th:if="${user.canPostActuality}">
+                      <a th:href="@{/user_account/manage_actualities}">
+                        <i class="bx bx-briefcase"></i>
+                        Mes actualités
+                      </a>
+                  </li>
+                  <li>
+                      <a th:href="@{/user_account/manage_tags}">
+                        <i class="bx bx-briefcase"></i>
+                        Mes Tags
+                      </a>
+                  </li>
+
+                  <li>
+                      <a th:href="@{/user_account/change_password}" th:class="${(activeAccountSidebarLink == '/user_account/change_password') ? 'active' : ''}">
+                          <i class='bx bx-lock-alt'></i>
+                          Changer le mot de passe
+                      </a>
+                  </li>
+                  <li>
+                      <a th:href="@{/account/logout}">
+                          <i class='bx bx-log-out'></i>
+                          Déconnexion
+                      </a>
+                  </li>
+            </ul>
+        </div>
+    </div>
+    -->
+
+    <div class="account-information">
+        <div class="profile-thumb">
+            <img
+                    th:if="${authenticatedUser!=null && authenticatedUser.photoLink!=null}"
+                    th:src="${authenticatedUser.photoLink}"
+                    width="150"
+                    alt="User Image"
+            >
+            <img
+                    th:unless="${authenticatedUser!=null && authenticatedUser.photoLink!=null}"
+                    th:src="@{/assets/frontend/img/user-icon.png}"
+                    width="150"
+                    alt="User Image"
+            >
+
+            <div th:if="${authenticatedUser}">
+                <h3 th:text="${authenticatedUser.username}"></h3>
+                <p> <span th:text="${authenticatedUser.role.libelle.toUpperCase()}"></span> </p>
+            </div>
+            <div th:unless="${authenticatedUser}">
+                <h3>John Doe</h3>
+                <p> <span>Utilisateur</span> </p>
+            </div>
+        </div>
+        <div>
+            <ul>
+                <li>
+                    <a th:href="@{/account}" th:class="${(activeAccountSidebarLink == '/account') ? 'active' : ''}">
+                        <i class='bx bx-user'></i>
+                        Profil
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/account/password}" th:class="${(activeAccountSidebarLink == '/account/password') ? 'active' : ''}">
+                        <i class='bx bx-lock-alt'></i>
+                        Changer le mot de passe
+                    </a>
+                </li>
+                <li>
+                    <a
+                            th:if="${authenticatedUser!=null && authenticatedUser.role.libelle.toUpperCase()!='candidat'.toUpperCase()}"
+                            th:href="@{/account/manage/offers}"
+                    >
+                        <i class='bx bx-user'></i>
+                        Gerer mes offres
+                    </a>
+                </li>
+                <!--
+                <li>
+                    <a
+                            th:if="${authenticatedUser!=null && authenticatedUser.role.libelle.toUpperCase()!='candidat'.toUpperCase()}"
+                            th:href="@{/offer/save}"
+                    >
+                        <i class='bx bx-user'></i>
+                        Creer une offre
+                    </a>
+                </li>
+                -->
+                <li>
+                    <a th:href="@{/logout}">
+                        <i class='bx bx-log-out'></i>
+                        Déconnexion
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</div>

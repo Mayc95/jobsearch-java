@@ -1,0 +1,13 @@
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="head (title)">
+    <head>
+
+        <th:block th:replace="fragments/frontend/fragment_meta :: meta" />
+
+        <th:block th:replace="fragments/frontend/fragment_stylesheet :: stylesheet" />
+
+        <th:block th:replace="fragments/frontend/fragment_title :: title (page_title=${title})" />
+
+        <link rel="icon" type="image/png" th:href="@{assets/frontend/img/favicon.png}">
+
+    </head>
+</div>

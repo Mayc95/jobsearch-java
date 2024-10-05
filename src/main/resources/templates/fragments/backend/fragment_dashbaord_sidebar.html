@@ -1,0 +1,103 @@
+
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="dashboard_sidebar"
+>
+
+<div class="main-sidebar sidebar-style-2">
+    <aside id="sidebar-wrapper">
+        <div class="sidebar-brand">
+            <a th:href="@{/}"> <img alt="image" th:src="@{/assets/backend/img/logo.png}" class="header-logo"  /> <span
+                    class="logo-name">ADEQUAT</span>
+            </a>
+        </div>
+        <div class="sidebar-user">
+            <div class="sidebar-user-picture">
+
+                <div th:unless="${user != null}">
+                    <img alt="image" th:src="@{/assets/backend/img/user.png}"
+                         >
+                </div>
+
+            </div>
+            <div class="sidebar-user-details">
+                <div class="user-name">
+                    <span>Username default</span>
+                </div>
+                <div class="user-role"></div>
+                <div class="sidebar-userpic-btn">
+                    <a th:href="@{/backend/admin/profil}" data-toggle="tooltip" title="Profil">
+                        <i data-feather="user"></i>
+                    </a>
+                    <a th:href="@{/account/logout}" data-toggle="tooltip" title="Se déconnecter">
+                        <i data-feather="log-out"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <ul class="sidebar-menu">
+            <li class="menu-header">Principale</li>
+
+            <li class="dropdown">
+                <a th:href="@{/backend/dashboard}" class="nav-link" role="button" aria-disabled="true">
+                    <i data-feather="monitor"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+
+            <li class="dropdown">
+                <a th:href="@{/backend/config/company}" class="nav-link" role="button" aria-disabled="true">
+                    <i data-feather="calendar"></i><span>Entreprises</span></a>
+            </li>
+
+            <li class="dropdown">
+                <a th:href="@{/backend/offer}" class="nav-link" role="button" aria-disabled="true">
+                    <i data-feather="calendar"></i>
+                    <span>Offres</span>
+                </a>
+            </li>
+
+            <li class="dropdown">
+                <a th:href="@{/backend/admin/actuality}" class="nav-link disabled" role="button" aria-disabled="true">
+                    <i data-feather="shopping-bag"></i><span>Actualités</span></a>
+            </li>
+
+            <li class="dropdown">
+                <a th:href="@{/backend}" class="menu-toggle nav-link has-dropdown" role="button" aria-disabled="true">
+                    <i data-feather="settings"></i><span>Paramètres</span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="nav-link" th:href="@{/backend/config/activitysector}">Secteurs d'activités</a></li>
+                    <li><a class="nav-link" th:href="@{/backend/config/typeoffre}">Types d'offres</a></li>
+                    <li><a class="nav-link" th:href="@{/backend/config/niveauexperience}">Niveaux d'expériences</a></li>
+                    <li><a class="nav-link" th:href="@{/backend/config/niveauscolaire}">Niveaux scolaires</a></li>
+                    <li><a class="nav-link" th:href="@{/backend/config/roles}">Roles utilisateur</a></li>
+                </ul>
+            </li>
+
+            <li class="dropdown">
+                <a th:href="@{/backend}" class="menu-toggle nav-link has-dropdown disabled" role="button" aria-disabled="true">
+                    <i data-feather="briefcase"></i><span>Membres</span>
+                </a>
+                <ul class="dropdown-menu">
+
+                    <li>
+                        <a class="nav-link disabled" th:href="@{/backend/admin/candidate}" role="button" aria-disabled="true">
+                            Candidats
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="nav-link disabled" th:href="@{/backend/admin/recruiter}" role="button" aria-disabled="true">
+                            Recruteurs
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+
+        </ul>
+    </aside>
+</div>
+
+
+</div>

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="fragments/backend/fragment_meta :: meta"/>
+
+<th:block th:replace="fragments/backend/fragment_head :: head('Home')" />
+
+<body >
+<!-- <th:block th:replace="fragments/fragment_navbar :: navbar" />-->
+
+<div class="loader"></div>
+
+<div id="app">
+    <div class="main-wrapper main-wrapper-1">
+        <div class="navbar-bg"></div>
+
+        <th:block th:replace="fragments/backend/fragment_navbar :: navbar" />
+
+        <th:block th:replace="fragments/backend/fragment_dashbaord_sidebar :: dashboard_sidebar" />
+
+
+        <div class="main-content">
+            <section class="section">
+                <ul class="breadcrumb breadcrumb-style ">
+                    <li class="breadcrumb-item">
+                        <h4 class="page-title m-b-0">Niveaux scolaires</h4>
+                    </li>
+
+                </ul>
+
+                <button data-target="#addModal"
+                        data-toggle="modal"
+                        class="btn btn-primary mt-2 mb-2">Ajouter un niveau scolaire pour les utilisateurs</button>
+
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Niveaux Scolaires</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-striped" id="table-1">
+                                        <thead>
+                                        <tr>
+                                            <th class="text-center">#</th>
+                                            <th>Libelle</th>
+                                            <th>Description</th>
+                                            <th>Date de creation</th>
+                                            <th class="text-center">Actions</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        <tr th:each="a:${niveaux}">
+                                            <td th:text="${a.id}"></td>
+                                            <td th:if="${a.libelle!=''}" th:text="${(a.libelle.length>35) ? a.libelle.substring(0,35).toUpperCase()+'...' : a.libelle.toUpperCase()}"></td>
+                                            <td th:unless="${a.libelle!=''}">Pas encore renseigné</td>
+                                            <td th:if="${a.description!=null && a.description!=''}" th:text="${(a.description.length>35) ? a.description.substring(0,35)+'...' : a.description}"></td>
+                                            <td th:unless="${a.description!=null && a.description!=''}">Pas encore renseignée</td>
+                                            <td th:if="${a.dateDeCreation!=null}" th:text="${ 'Le '+#dates.format(a.dateDeCreation,'dd-MM-yyyy') }"></td>
+                                            <td th:unless="${a.dateDeCreation!=null}">Pas encore renseignée</td>
+
+                                            <td class="text-right">
+
+                                                <div class="row">
+                                                    <div class="col-lg-4">
+                                                        <button data-target="#updateModal"
+                                                                th:data-id="${a.id}"
+                                                                th:data-libelle="${a.libelle.toUpperCase()}"
+                                                                th:data-description="${a.description}"
+                                                                onclick="onUpdate(this.getAttribute('data-id'), this.getAttribute('data-libelle'), this.getAttribute('data-description'));"
+                                                                data-toggle="modal"
+                                                                class="btn btn-primary">Modifier</button>
+
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <button data-target="#deleteModal"
+                                                                th:data-id="${a.id}"
+                                                                onclick="onDelete(this.getAttribute('data-id'));"
+                                                                data-toggle="modal"
+                                                                class="btn btn-primary">Supprimer</button>
+
+                                                    </div>
+                                                </div>
+
+                                            </td>
+
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- add -->
+            <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="formModal"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="formModal">Ajouter</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form method="post" th:action="@{/backend/config/niveauscolaire/save}">
+
+
+                                <div class="form-group">
+                                    <label>Libelle</label>
+                                    <div class="input-group">
+                                        <input  type="text" class="form-control" placeholder="Libelle" name="libelle">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Description</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Description" name="description">
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary m-t-15 waves-effect">Enregistrer</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- update -->
+            <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="formModal"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="formModal">Modifier</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="" th:action="@{/backend/config/niveauscolaire/save}" method="post">
+
+                                <input type="hidden" name="id" class="model-id">
+
+                                <div class="form-group">
+                                    <label>Libelle</label>
+                                    <div class="input-group">
+                                        <input id="libelle" type="text" class="form-control" placeholder="Libelle" name="libelle">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Description</label>
+                                    <div class="input-group">
+                                        <input type="text" id="description" class="form-control" placeholder="Description" name="description">
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary m-t-15 waves-effect">Modifier</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- delete -->
+            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="formModal"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="formModal">Supprimer</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="" th:action="@{/backend/config/niveauscolaire/delete}" method="post">
+
+                                <input type="hidden" name="id" class="model-id">
+                                <p>
+                                    Voulez vous confirmer la suppression ?
+                                </p>
+
+                                <button type="submit" class="btn btn-primary m-t-15 waves-effect">Supprimer</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+    </div>
+</div>
+
+<th:block th:replace="fragments/backend/fragment_footer :: footer" />
+
+<th:block th:replace="fragments/backend/fragment_script :: script"/>
+
+<script type="application/javascript">
+
+    function onUpdate(id,lib,desc) {
+        console.log(id);
+        console.log(lib);
+        console.log(desc);
+        $('.model-id').val(id);
+        $('#libelle').val(lib);
+        $('#description').val(desc);
+    }
+
+    function onDelete(id) {
+        $('.model-id').val(id);
+    }
+
+</script>
+</body>
+</html>

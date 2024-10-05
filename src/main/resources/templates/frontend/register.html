@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" class="first-theme">
+
+<th:block th:replace="fragments/frontend/fragment_head :: head ('Register')" />
+
+
+<body>
+
+<th:block th:replace="fragments/frontend/fragment_header :: header" />
+
+
+<!-- Main Content -->
+
+<div class="signup-section ptb-100">
+  <div class="container">
+    <div class="row flex-row justify-content-center">
+      <div class="col-lg-6 col-md-9">
+        <div id="registerPagePanel" class="form-group dynamicPanelCustomStyle">
+          <h3 class="mb-3">Vous êtes ?</h3>
+          <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+            <li class="nav-item pr-2">
+              <a
+                      class="nav-link active" id="pills-candidate-tab" data-toggle="pill"
+                      href="#pills-candidate" role="tab" aria-controls="pills-candidate"
+                      aria-selected="true"
+              >
+                Un Candidat
+              </a>
+            </li>
+            <li class="nav-item pl-2">
+              <a
+                      class="nav-link" id="pills-recruiteur-tab" data-toggle="pill"
+                      href="#pills-recruiter" role="tab" aria-controls="pills-recruiter"
+                      aria-selected="false"
+              >
+                Un Recruteur
+              </a>
+            </li>
+          </ul>
+          <div class="tab-content" id="pills-tabContent">
+
+            <div
+                    class="tab-pane formRegisterCandidate fade show active" id="pills-candidate"
+                    role="tabpanel" aria-labelledby="pills-candidate-tab"
+            >
+              <form th:action="@{/register}" method="post" class="signup-form customFormInputStyle">
+                <input type="text" name="typeuser" value="candidat" hidden>
+                <div class="form-group">
+                  <label>Secteur d'activité</label>
+                  <select name="activitySector" class="form-control category idActivitySector w-100" style="padding-bottom: 35px;">
+                    <option value="">Sélectionner un secteur d'activité</option>
+                    <option th:each="activitySector: ${allActivitySector}" th:text="${activitySector?.libelle}" th:value="${activitySector?.id}"></option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Nom</label>
+                  <input type="text" name="firstname" class="form-control" placeholder="Entrer votre nom" required>
+                </div>
+                <div class="form-group">
+                  <label>Prénom(s)</label>
+                  <input type="text" name="lastname" class="form-control" placeholder="Entrer votre ou vos prénoms" required>
+                </div>
+                <div class="form-group">
+                  <label>Adresse mail</label>
+                  <input type="email" name="email" class="form-control" placeholder="Entrer votre adresse mail" required>
+                </div>
+                <div class="form-group">
+                  <label>Contact</label>
+                  <input type="text" name="phone" class="form-control" placeholder="Entrer votre numéro de téléphone" required>
+                </div>
+                <div class="form-group">
+                  <label>Mot de passe</label>
+                  <input type="password" name="password" class="form-control" placeholder="Entrer votre mot de passe" required>
+                </div>
+                <div class="form-group">
+                  <label>Confirmer le mot de passe</label>
+                  <input type="password" name="confirm-password" class="form-control" placeholder="Confirmer votre mot de passe" required>
+                </div>
+                <div class="signup-btn text-center">
+                  <button type="submit">Enregistrer</button>
+                </div>
+                <div class="create-btn text-center">
+                  <p>
+                    Vous avez déja un compte?
+                    <a th:href="@{/login}">
+                      Se connecter
+                      <i class='bx bx-chevrons-right bx-fade-right'></i>
+                    </a>
+                  </p>
+                </div>
+              </form>
+            </div>
+
+            <div
+                    class="tab-pane formRegisterRecruiter fade" id="pills-recruiter"
+                    role="tabpanel" aria-labelledby="pills-recruiter-tab"
+            >
+              <form th:action="@{/account/register}" method="post" class="signup-form customFormInputStyle">
+                <input type="text" name="typeuser" value="recruteur" hidden>
+                <div class="form-group">
+                  <label>Nom</label>
+                  <input type="text" name="firstname" class="form-control" placeholder="Entrer votre nom" required>
+                </div>
+                <div class="form-group">
+                  <label>Prénom(s)</label>
+                  <input type="text" name="lastname" class="form-control" placeholder="Entrer votre ou vos prénoms" required>
+                </div>
+                <div class="form-group">
+                  <label>Adresse mail</label>
+                  <input type="email" name="email" class="form-control" placeholder="Entrer votre adresse mail" required>
+                </div>
+                <div class="form-group">
+                  <label>Contact</label>
+                  <input type="text" name="phone" class="form-control" placeholder="Entrer votre numéro de téléphone" required>
+                </div>
+                <div class="form-group">
+                  <label>Mot de passe</label>
+                  <input type="password" name="password" class="form-control" placeholder="Entrer votre mot de passe" required>
+                </div>
+                <div class="form-group">
+                  <label>Confirmer le mot de passe</label>
+                  <input type="password" name="confirm-password" class="form-control" placeholder="Confirmer votre mot de passe" required>
+                </div>
+                <div class="signup-btn text-center">
+                  <button type="submit">Enregistrer</button>
+                </div>
+                <div class="create-btn text-center">
+                  <p>
+                    Vous avez déja un compte?
+                    <a th:href="@{/account/login}">
+                      Se connecter
+                      <i class='bx bx-chevrons-right bx-fade-right'></i>
+                    </a>
+                  </p>
+                </div>
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- End Main Content -->
+
+<th:block th:replace="fragments/frontend/fragment_footer :: footer" />
+
+<th:block th:replace="fragments/frontend/fragment_script :: script" />
+
+</body>
+</html>

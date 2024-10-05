@@ -1,0 +1,360 @@
+/***********************************************************
+*                                                          *
+*   First CSS theme for ADEQUAT project                    *
+*                                                          *
+************************************************************/
+
+:root {
+    --yellow-color : #D8B900;
+    --blue-color: #009FE3;
+    --nightblue-color: #010c29;
+    --secondary-yellow-color: #f5e8a0;
+    --primary-color-light: #f7ecaf;
+    --secondary-color-light: #acdff5;
+    --red-rgb-primary-color : 216;
+    --green-rgb-primary-color : 185;
+    --blue-rgb-primary-color : 0;
+    --red-rgb-nightblue-color : 0;
+    --green-rgb-nightblue-color : 4;
+    --blue-rgb-nightblue-color : 44;
+    /*
+    --primary-blue-color-with-opacity: rgba(0, 159, 227, var(--opacity));
+    --primary-black-color-with-opacity: rgba(0, 0, 0, var(--opacity));
+    */
+    --primary-color: var(--yellow-color) ;
+    --secondary-color: var(--blue-color);
+    --third-color: var(--nightblue-color);
+}
+
+/***** COMMON STYLE *****/
+.first-theme .primary-color-on-hover:hover {
+    color: var(--primary-color) !important;
+}
+
+/* a, button */
+.first-theme a:hover {
+    color: var(--primary-color) !important;
+}
+.first-theme .navbar-area .main-nav .navbar .navbar-nav .nav-item .nav-link.active {
+    color: var(--primary-color) !important;
+    font-weight: bold !important;
+}
+.first-theme .find-btn,
+.first-theme .navbar-area .main-nav .navbar .other-option .signin-btn,
+.first-theme .banner-section .banner-content .banner-form .find-btn {
+    background: var(--primary-color) !important;
+    color: #ffffff !important;
+    border: 1px solid var(--primary-color) !important;
+}
+.first-theme .find-btn:hover {
+    background: #ffffff !important;
+    color: var(--primary-color) !important;
+    border: 1px solid var(--primary-color) !important;
+}
+.first-theme .navbar-area .main-nav .navbar .other-option .signin-btn:hover,
+.first-theme .banner-section .banner-content .banner-form .find-btn:hover {
+    background: #ffffff !important;
+    color: var(--primary-color) !important;
+}
+.first-theme .top-btn {
+    background: var(--primary-color);
+}
+.first-theme .top-btn:hover {
+    background: var(--secondary-color);
+}
+.first-theme .theme-btn .default-btn {
+    background: var(--primary-color) !important;
+    border: 1px solid var(--primary-color) !important;
+    color: #ffffff !important;
+}
+.first-theme .theme-btn .default-btn:hover {
+    background: #ffffff !important;
+    border: 1px solid var(--primary-color) !important;
+    color: var(--primary-color) !important;
+}
+.first-theme .contact-btn {
+    background: var(--primary-color) !important;
+}
+.first-theme .contact-btn:hover {
+    background: #ffffff !important;
+    border: 1px solid var(--primary-color) !important;
+    color: var(--primary-color) !important;
+}
+.first-theme .main-nav nav .navbar-nav .nav-item:hover a {
+    color: var(--primary-color) !important;
+}
+.first-theme .signin-form .signin-btn button,
+.first-theme .signup-form .signup-btn button {
+    background: var(--secondary-color) !important;
+    color: #ffffff !important;
+}
+.first-theme .signup-form .create-btn a,
+.first-theme .signin-form .create-btn a {
+    color: var(--secondary-color) !important;
+}
+.first-theme .signin-form .signin-btn button:hover,
+.first-theme .signup-form .signup-btn button:hover {
+    background: var(--primary-color) !important;
+}
+.first-theme .signup-form .create-btn a:hover,
+.first-theme .signin-form .create-btn a:hover {
+    color: var(--primary-color) !important;
+}
+.first-theme .account-btn {
+    background: var(--primary-color) !important;
+    border: 1px solid var(--primary-color) !important;
+    color: #ffffff !important;
+}
+.first-theme .account-btn:hover {
+    background: #ffffff !important;
+    border: 1px solid var(--primary-color) !important;
+    color: var(--primary-color) !important;
+}
+.first-theme .simple-account-btn {
+    background: var(--primary-color) !important;
+    color: #ffffff !important;
+}
+.first-theme .simple-account-btn:hover {
+    color: #ffffff !important;
+}
+.first-theme .job-post-from .post-btn {
+    background: var(--primary-color) !important;
+    border: 1px solid var(--primary-color) !important;
+    color: #ffffff !important;
+}
+.first-theme .job-post-from .post-btn:hover {
+    background: #ffffff !important;
+    border: 1px solid var(--primary-color) !important;
+    color: var(--primary-color) !important;
+}
+/* page title section */
+.first-theme .page-title::before {
+    background: rgba(0, 0, 0, .5) !important;
+}
+/* use section */
+.first-theme .use-section::before {
+    /*background: rgba(var(--red-rgb-nightblue-color), var(--green-rgb-nightblue-color), var(--blue-rgb-nightblue-color), .6) !important;*/
+    background: rgba(0,0,0,.5);
+}
+.first-theme .use-section .use-text span {
+    background: var(--third-color) !important;
+    color: var(--primary-color) !important;
+}
+.first-theme .use-section .use-text i {
+    color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+}
+.first-theme .use-section .use-text:hover i {
+    background: var(--primary-color) !important;
+    color: #ffffff !important;
+}
+/* suscribe section */
+.first-theme .subscribe-section {
+    background: var(--primary-color) !important;
+}
+.first-theme .subscribe-section .newsletter-form .sub-btn {
+    background: var(--secondary-color) !important;
+    border: 1px solid #ffffff !important;
+}
+.first-theme .subscribe-section .newsletter-form .sub-btn:hover {
+    background: var(--primary-color) !important;
+    color: #ffffff !important;
+}
+/* job list section and blog section */
+.first-theme .searchOfferPage .job-list-section,
+.first-theme .searchAcutalitiesPage .blog-section,
+.first-theme .searchAnnouncementPage .blog-section {
+    /* background: rgba(var(--red-rgb-primary-color),var(--green-rgb-primary-color),var(--blue-rgb-primary-color), .05) !important; */
+    background: #ffffff !important;
+}
+/* find section */
+.first-theme .searchOfferPage .find-section,
+.first-theme .searchAcutalitiesPage .find-section,
+.first-theme .searchAnnouncementPage .find-section {
+    background: #ffffff !important;
+}
+/* testimonial item */
+.first-theme .testimonial-items .testimonial-text {
+    background: var(--primary-color-light) !important;
+}
+.first-theme .testimonial-items .testimonial-text i {
+    color: var(--secondary-color-light) !important;
+}
+.first-theme .testimonial-items:hover .testimonial-text {
+    background: var(--primary-color) !important;
+}
+.first-theme .testimonial-slider-two .owl-prev,
+.first-theme .testimonial-slider-two .owl-next {
+    background: var(--primary-color-light) !important;
+}
+.first-theme .testimonial-slider-two .owl-prev:hover,
+.first-theme .testimonial-slider-two .owl-next:hover {
+    background: var(--primary-color) !important;
+}
+/* job card items */
+.first-theme .job-card-two .company-logo {
+    background: #ffffff !important;
+    border-radius: 0;
+    border: 0;
+    border-color: var(--primary-color) !important;
+}
+.first-theme .job-card-two .job-info span {
+    background: var(--primary-color-light) !important;
+    color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+}
+.first-theme .job-card .job-save span {
+    color: var(--primary-color) !important;
+}
+/* job sidebar on detail offer page */
+.first-theme .job-sidebar ul li a {
+    border-color: var(--primary-color) !important;
+}
+.first-theme .job-sidebar ul li a:hover {
+    background: var(--primary-color) !important;
+    color: #ffffff !important;
+}
+/* blog card item */
+.first-theme .blog-card {
+    background: #ffffff !important;
+}
+.first-theme .blog-card .blog-text ul li i {
+    color: var(--primary-color) !important;
+}
+.first-theme .blog-card .blog-text .blog-btn {
+    color: var(--primary-color) !important;
+}
+/* sidebar dashboard account page */
+.first-theme .account-information ul li a:hover {
+    background: var(--primary-color) !important;
+    color: #ffffff !important;
+}
+.first-theme .account-information ul li a.active {
+    background: var(--primary-color) !important;
+    color: #ffffff !important;
+}
+.first-theme .account-information ul li a.active:hover {
+    color: #ffffff !important;
+}
+/* others elements */
+.first-theme .borderForJobCard {
+    border-color: var(--primary-color) !important;
+}
+.first-theme .page-title .lines .line::after {
+    background: var(--secondary-color) !important;
+}
+.first-theme .dynamicPanelCustomStyle .nav-pills .nav-item > a {
+    border-color: var(--primary-color) !important;
+}
+.first-theme .dynamicPanelCustomStyle .nav-pills .nav-link.active,
+.first-theme .dynamicPanelCustomStyle .nav-pills .show>.nav-link,
+.first-theme .dynamicPanelCustomStyle .nav-pills .nav-link.active {
+    background: var(--primary-color) !important;
+    color: #ffffff !important;
+}
+.first-theme .dynamicPanelCustomStyle .nav-pills .nav-link.active:hover {
+    color: #ffffff !important;
+}
+.first-theme .resume-area .resume-content .info span::before {
+    background: var(--primary-color) !important;
+}
+/***** END COMMON STYLE *****/
+
+
+/* MAIN HEADER STYLE */
+.first-theme .navbar-area .main-nav {
+    background: var(--secondary-color) !important;
+}
+/* END MAIN HEADER STYLE */
+
+/* MAIN FOOTER STYLE */
+.first-theme .footer-area {
+    background: var(--secondary-color) !important;
+    padding: 40px 0;
+}
+.first-theme .footer-area .footer-widget ul li a {
+    color: #ffffff !important;
+}
+.first-theme .footer-area .footer-widget ul li a:hover {
+    color: var(--primary-color) !important;
+}
+.first-theme .footer-area .footer-widget ul li,
+.first-theme .footer-area .footer-widget ul li span {
+    color: #ffffff !important;
+}
+.first-theme .footer-area .footer-widget ul li a i,
+.first-theme .footer-area .footer-widget.footer-info ul li span i {
+    color: var(--primary-color) !important;
+}
+.first-theme .footer-area .footer-widget .footer-social a i {
+    color: var(--primary-color) !important;
+}
+.first-theme .footer-area .footer-widget .footer-social a i:hover {
+    color: #ffffff !important;
+    background: var(--primary-color) !important;
+}
+.first-theme .copyright-text {
+    background: rgb(var(--red-rgb-nightblue-color), var(--green-rgb-nightblue-color), var(--blue-rgb-nightblue-color));
+}
+/* END MAIN FOOTER STYLE */
+
+/* HOME PAGE STYLE */
+.first-theme #homePage .banner-section::before {
+    /*background: rgba(var(--red-rgb-nightblue-color), var(--green-rgb-nightblue-color), var(--blue-rgb-nightblue-color), .6) !important;*/
+    background: rgba(0,0,0,.5);
+}
+.first-theme #homePage .why-choose {
+    --opacity: .80 !important;
+    background: var(--primary-color) !important;
+}
+.first-theme #homePage .why-choose:before {
+    width: 400px;
+}
+.first-theme #homePage .why-choose-text .media i {
+    background: #ffffff !important;
+    color: var(--primary-color) !important;
+    /*color: var(--secondary-color) !important;*/
+}
+.first-theme #homePage .category-card:hover {
+    border-color: var(--primary-color) !important;
+}
+.first-theme #homePage .category-card i {
+    color: var(--primary-color) !important;
+}
+.first-theme #homePage .company-card {
+    border-color: var(--primary-color) !important;
+}
+.first-theme #homePage .company-card .company-text .company-btn {
+    background: var(--primary-color) !important;
+}
+.first-theme #homePage .company-card .company-text .company-btn:hover {
+    background: var(--secondary-color) !important;
+    color: #ffffff !important;
+}
+/* END HOME PAGE STYLE */
+
+
+/* ABOUT PAGE STYLE */
+.first-theme #aboutPage .choose-card {
+    border-color: var(--primary-color) !important;
+}
+.first-theme #aboutPage .choose-card i {
+    color: var(--primary-color) !important;
+    background: #ffffff !important;
+    border-color: var(--primary-color) !important;
+}
+.first-theme #aboutPage .choose-card:hover {
+    background: var(--primary-color) !important;
+    color: #ffffff !important;
+}
+.first-theme #aboutPage .counter-section {
+    background: var(--secondary-color) !important;
+}
+.first-theme #aboutPage .counter-section .counter-text i {
+    color: var(--primary-color) !important;
+}
+/* END ABOUT PAGE STYLE */
+
+
+/* CONTACT PAGE STYLE */
+/* END CONTACT PAGE STYLE */

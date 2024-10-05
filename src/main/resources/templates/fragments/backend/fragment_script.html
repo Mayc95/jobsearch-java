@@ -1,0 +1,237 @@
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="script">
+
+    <!-- General JS Scripts -->
+    <script th:src="@{/assets/backend/js/app.min.js}"></script>
+
+    <script th:src="@{/assets/backend/js/sweetalert2.min.js}"></script>
+
+    <!--jquery -->
+    <script th:src="@{/assets/backend/bundles/jquery-ui/jquery-ui.min.js}"></script>
+    <!-- JS Libraies -->
+    <script th:src="@{/assets/backend/bundles/apexcharts/apexcharts.min.js}"></script>
+
+    <!-- Page Specific JS File -->
+    <script th:src="@{/assets/backend/js/page/index.js}"></script>
+    <!-- Template JS File -->
+    <script th:src="@{/assets/backend/js/scripts.js}"></script>
+
+    <!-- Page Specific JS File -->
+    <script th:src="@{/assets/backend/bundles/footable-bootstrap/js/footable.js}"></script>
+    <script th:src="@{/assets/backend/js/page/footable-data.js}"></script>
+
+    <!--  datatable --->
+    <script th:src="@{/assets/backend/bundles/datatables/datatables.min.js}"></script>
+    <script th:src="@{/assets/backend/bundles/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js}"></script>
+    <script th:src="@{/assets/backend/js/page/datatables.js}"></script>
+
+    <script th:src="@{/assets/backend/bundles/apexcharts/apexcharts.min.js}"></script>
+
+    <script th:src="@{/assets/backend/bundles/amcharts4/core.js}"></script>
+    <script th:src="@{/assets/backend/bundles/amcharts4/charts.js}"></script>
+    <script th:src="@{/assets/backend/bundles/amcharts4/animated.js}"></script>
+
+    <script th:src="@{/assets/backend/bundles/summernote/summernote-bs4.js}"></script>
+
+    <script th:src="@{/assets/backend/bundles/codemirror/lib/codemirror.js}"></script>
+    <script th:src="@{/assets/backend/bundles/codemirror/mode/javascript/javascript.js}"></script>
+
+    <script th:src="@{/assets/backend/bundles/jquery-selectric/jquery.selectric.min.js}"></script>
+
+    <script th:src="@{/assets/backend/bundles/ckeditor/ckeditor.js}"></script>
+
+    <!-- Page Specific JS File -->
+    <script th:src="@{/assets/backend/js/page/ckeditor.js}"></script>
+
+    <script th:src="@{/assets/backend/js/input-preview.js}"></script>
+
+    <!--  Owl Carousel 2 --->
+    <script th:src="@{/assets/backend/bundles/owlcarousel2/dist/owl.carousel.min.js}"></script>
+
+    <!--  Select 2 --->
+    <script th:src="@{/assets/backend/bundles/select2/dist/js/select2.full.min.js}"></script>
+
+    <!-- Custom JS File -->
+    <script th:src="@{/assets/backend/js/custom.js}"></script>
+
+    <script type="application/javascript">
+
+        /*--------------------------------------
+                Select2 multiple select
+        ---------------------------------------*/
+        if (jQuery().select2) {
+            $(".select2").select2();
+        }
+
+
+
+        /*--------------------------------------
+                Sweet Alert Dialogs
+        ---------------------------------------*/
+
+        // Success Message
+        function notifySuccess(title, body) {
+            swal.fire({
+                title: title,
+                text: body,
+                textColor:'blue',
+                type: 'success',
+                icon:'success',
+                // buttonsStyling: false,
+                // confirmButtonColor:'#3085d6',
+                confirmButtonClass: 'btn btn-sm bg-primary',
+                //background: 'rgba(0, 0, 0, 0.96)'
+            })
+
+        }
+
+        function notifyWarning(title, body) {
+
+            Swal.fire({
+                title: title,
+                text: body,
+                type: 'warning',
+                buttonsStyling: true,
+                confirmButtonClass: 'btn btn-sm btn-light',
+                //  background: 'rgba(0, 0, 0, 0.96)'
+            })
+        }
+        /*function notifySuccess(title, body) {
+            swal({
+                title: title,
+                text: body,
+                type: 'success',
+                buttonsStyling: false,
+                confirmButtonClass: 'btn btn-sm btn-light',
+                background: 'rgba(0, 0, 0, 0.96)'
+            })
+        }*/
+
+        function notifyWarningCniRecto(title, body) {
+            swal({
+                title: title,
+                text: body,
+                type: 'warning',
+                buttonsStyling: false,
+                confirmButtonClass: 'btn btn-sm btn-light',
+                background: 'rgba(0, 0, 0, 0.96)'
+            })
+        }
+
+
+
+        // Basic Message
+        function notifyBasic(title, body) {
+            swal({
+                title: title,
+                text: body,
+                buttonsStyling: false,
+                confirmButtonClass: 'btn btn-sm btn-light',
+                background: 'rgba(0, 0, 0, 0.96)'
+            })
+        }
+
+        // Success Message
+        function notifyInfo(title, body) {
+            swal({
+                title: title,
+                text: body,
+                type: 'info',
+                buttonsStyling: true,
+                confirmButtonClass: 'btn btn-sm btn-primary',
+                //background: 'rgba(0, 0, 0, 0.96)'
+            })
+        }
+
+
+
+        // Warning Message
+        $('#sa-warning').click(function () {
+            swal({
+                title: 'Not a good sign...',
+                text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lorem erat, tincidunt vitae ipsum et, pellentesque maximus enim. Mauris eleifend ex semper, lobortis purus sed, pharetra felis',
+                type: 'warning',
+                buttonsStyling: false,
+                confirmButtonClass: 'btn btn-sm btn-light',
+                background: 'rgba(0, 0, 0, 0.96)'
+            })
+        });
+
+        // Question Message
+        $('#sa-question').click(function () {
+            swal({
+                title: 'Hmm.. what did you say?',
+                text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lorem erat, tincidunt vitae ipsum et, pellentesque maximus enim. Mauris eleifend ex semper, lobortis purus sed, pharetra felis',
+                type: 'question',
+                buttonsStyling: false,
+                confirmButtonClass: 'btn btn-sm btn-light',
+                background: 'rgba(0, 0, 0, 0.96)'
+            })
+        });
+
+        // Warning Message with function
+        $('#sa-funtion').click(function () {
+            swal({
+                title: 'Are you sure?',
+                text: 'You will not be able to recover this imaginary file!',
+                type: 'warning',
+                showCancelButton: true,
+                buttonsStyling: false,
+                confirmButtonClass: 'btn btn-danger',
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonClass: 'btn btn-light',
+                background: 'rgba(0, 0, 0, 0.96)'
+            }).then(function () {
+                swal({
+                    title: 'Are you sure?',
+                    text: 'You will not be able to recover this imaginary file!',
+                    type: 'success',
+                    buttonsStyling: false,
+                    confirmButtonClass: 'btn btn-light',
+                    background: 'rgba(0, 0, 0, 0.96)'
+                });
+            });
+        });
+
+        // Custom Image
+        $('#sa-image').click(function () {
+            swal({
+                title: 'Sweet!',
+                text: "Here's a custom image.",
+                imageUrl: 'demo/img/thumbs-up.png',
+                buttonsStyling: false,
+                confirmButtonClass: 'btn btn-light',
+                confirmButtonText: 'Super!',
+                background: 'rgba(0, 0, 0, 0.96)'
+            });
+        });
+
+        // Auto Close Timer
+        $('#sa-timer').click(function () {
+            swal({
+                title: 'Auto close alert!',
+                text: 'I will close in 2 seconds.',
+                timer: 2000,
+                showConfirmButton: false,
+                buttonsStyling: false,
+                background: 'rgba(0, 0, 0, 0.96)'
+            });
+        });
+
+
+        const colorMessage = "[[${colorMessage}]]";
+
+
+        if (colorMessage.toString() === 'red') {
+            const operationMessage = "[[${operationMessage}]]";
+            notifyWarning('Error', operationMessage)
+        } else if (colorMessage.toString() === 'green') {
+            const operationMessage = "[[${operationMessage}]]";
+            notifySuccess('Success', operationMessage)
+        }
+
+
+
+
+    </script>
+
+</div>

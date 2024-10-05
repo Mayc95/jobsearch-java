@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" class="first-theme">
+<head>
+
+  <th:block th:replace="fragments/frontend/fragment_head :: head ('Details Offre')" />
+
+</head>
+<body>
+
+<th:block th:replace="fragments/frontend/fragment_header :: header" />
+
+<!-- Main Content -->
+
+
+<section class="job-details pt-50 pb-100">
+  <div class="container">
+
+    <div th:unless="${offer != null}" class="row">
+      <div class="col-12">
+        <div class="section-title text-center">
+          <h2>L'offre recherchée n'existe pas !</h2>
+        </div>
+      </div>
+    </div>
+
+    <div th:if="${offer != null}" class="row">
+      <div class="col-lg-8">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="job-details-text">
+              <div class="job-card">
+                <div class="row align-items-center">
+                  <div class="col-md-3">
+                    <div class="company-logo">
+
+                      <img
+                              th:if="${offer.imageLocation!=null }"
+                              th:src="${'__${offer.imageLocation}__'}"
+                              alt="Offer Image" class="p-2" width="75"
+                      >
+                      <img
+                              th:if="${(offer.imageLocation==null && offer.company!=null && offer.company.logo!=null) }"
+                              th:src="${'/api/v1/files/display/__${offer.company.logo.key}__'}"
+                              alt="Offer Image" class="w-100"
+                      >
+                      <img
+                              th:if="${ (offer.imageLocation==null && (offer.company==null || (offer.company!=null && offer.company.logo))) }"
+                              th:src="@{/assets/frontend/img/img-icon.png}"
+                              alt="Offer Image" class="w-100"
+                      >
+                      <!--
+                      <img
+                              th:src="@{/assets/frontend/img/img-icon.png}"
+                              alt="Offer Image" class="w-100"
+                      >
+                      -->
+                    </div>
+                  </div>
+                  <div class="col-md-9">
+                    <div class="job-info">
+                      <h3 th:text="${offer.libelle}"></h3>
+                      <div>
+                        <i class='bx bx-location-plus'></i>
+                        <h7 th:text="${offer.localisation}"></h7>
+                      </div>
+                      <ul>
+                        <li>
+                          <i class='bx bx-filter-alt'></i>
+                          <h7 th:text="${offer.activitySector.libelle}"></h7>
+                        </li>
+                        <li>
+                          <i class='bx bx-briefcase'></i>
+                          <h7 th:text="${offer.typeOffre.libelle}"></h7>
+                        </li>
+                      </ul>
+                      <div th:if="${offer.dateDePublication != null}">
+                        <span class="color-primary-gray">
+                          <i class='bx bx-paper-plane'></i>
+                          Date de publication: <h7 th:text="${' Le '+#dates.format(offer.dateDePublication, 'dd MMMM yyyy')}"></h7>
+                        </span>
+                      </div>
+                      <div>
+                        <span class="">
+                          <i class='bx bx-alarm-exclamation'></i>
+                          Date de clôture: <h7 th:text="${' Le '+#dates.format(offer.dateExpiration, 'dd MMMM yyyy')}"></h7>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div th:if="${offer.etat == 'FINISHED'}" class="col-md-12 mt-3">
+                    <h1 class="mt-3">Cette offre est arrivée à terme.</h1>
+                  </div>
+                </div>
+              </div>
+
+              <div class="details-text">
+                <h3>Description</h3>
+                <p th:utext="${offer.description}"></p>
+              </div>
+
+              <div class="details-text">
+                <h3>Détails de l'offre</h3>
+                <div class="row">
+                  <div class="col-md-6">
+                    <table class="table">
+                      <tbody>
+                      <tr>
+                        <td><span>Auteur</span></td>
+                        <td th:if="${offer.author!=null}" class="pl-1">
+                          <a
+                                  th:href="@{'/user_account/details_profile?id=__${offer.author.id}__'}"
+                                  th:text="${offer.author.firstname}+' '+${offer.author.lastname}"
+                          ></a>
+                        </td>
+                        <td th:unless="${offer.author!=null}">Anonyme</td>
+                      </tr>
+                      <tr th:if="${offer.company!=null}">
+                        <td><span>Entreprise</span></td>
+                        <td th:text="${offer.company.name}"></td>
+                      </tr>
+                      <tr>
+                        <td><span>Email de l'offre</span></td>
+                        <td
+                                class="pl-1"
+                                th:text="${(offer.email != '') ? offer.email : 'Pas encore renseignée'}"
+                        ></td>
+                      </tr>
+                      <tr>
+                        <td><span>Type de l'offre</span></td>
+                        <td class="pl-1" th:text="${offer.typeOffre.libelle}"></td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="col-md-6">
+                    <table class="table">
+                      <tbody>
+                      <tr th:if="${offer.company!=null && offer.company.websitelink!=''}">
+                        <td><span>Site web</span></td>
+                        <td class="pl-1">
+                          <a th:href="${offer.company.websitelink}" th:text="${offer.company.websitelink}"></a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><span>Niveau d'expérience</span></td>
+                        <td
+                                class="pl-1"
+                                th:text="${(offer.niveauExperience!=null && offer.niveauExperience.libelle!='') ? offer.niveauExperience.libelle : 'Pas encore renseigné' }"
+                        ></td>
+                      </tr>
+                      <tr th:if="${offer.langue != null}">
+                        <td><span>Langue</span></td>
+                        <td
+                                class="pl-1"
+                                th:text="${(offer.langue!='') ? offer.langue : 'Pas encore renseigné'}"
+                        ></td>
+                      </tr>
+                      <tr th:if="${offer.salaire != ''}">
+                        <td><span>Salaire</span></td>
+                        <td
+                                class="pl-1"
+                                th:text="${(offer.salaire!='') ? offer.salaire+' Fcfa' : 'Pas encore renseigné'}"
+                        ></td>
+                      </tr>
+                      <tr>
+                        <td><span>Localisation</span></td>
+                        <td class="pl-1" th:text="${offer.localisation}"></td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+              <div class="theme-btn">
+                <a th:if="${authenticatedUser!=null && offer.author!=null && authenticatedUser.id==offer.author.id}"
+                        th:href="@{/offer/save/__${offer.id}__}">Modifier l'offre</a>
+              </div>
+
+              <!--
+              <div class="theme-btn">
+                <button
+                        th:if="${(userConnected != null) && (userAuthenticatedIsCandidate && !candidateHasAlreadyAppliedToOffer && offer.state != 'FINISHED')}"
+                        type="button" class="default-btn" data-toggle="modal" data-target="#applyOfferModal">
+                  Postuler
+                </button>
+                <a th:unless="${(userConnected != null)}" th:href="@{/account/login}" class="default-btn">Postuler</a>
+              </div>
+
+              <div
+                      th:if="${(!userAuthenticatedIsCandidate && userConnected!=null && offer.recruiter?.id==userConnected.id)}"
+                      class="d-flex flex-row theme-btn"
+              >
+                <form th:action="@{/recruiter/save_offer}" method="get">
+                  <input type="text" name="id" th:value="${offer.id}" hidden>
+                  <button type="submit" class="default-btn mr-1">Modifier l'offre</button>
+                </form>
+                <form
+                        th:if="${offer.state != 'FINISHED'}"
+                        th:action="@{/recruiter/manage_offers/toogle_offers}" method="post"
+                >
+                  <input type="text" name="idoffer" th:value="${offer.id}" hidden>
+                  <button
+                          th:if="${(offer.state == 'PUBLISHED')}"
+                          type="submit"
+                          class="default-btn mr-1"
+                  >
+                    Ne plus publier
+                  </button>
+                  <button
+                          th:if="${(offer.state == 'CREATED')}"
+                          type="submit"
+                          class="default-btn mr-1"
+                  >
+                    Publier
+                  </button>
+                </form>
+                <form th:action="@{/recruiter/delete_offer}" method="post">
+                  <input type="text" name="idoffer" th:value="${offer.id}" hidden>
+                  <button type="submit" class="default-btn ml-1">Supprimer l'offre</button>
+                </form>
+              </div>
+
+              <div th:if="${(userAuthenticatedIsCandidate && candidateHasAlreadyAppliedToOffer)}" class="d-flex flex-row">
+                <h3>Vous avez déja postulé à cette offre</h3>
+                <div class="theme-btn ml-2 pl-2" style="margin-top:-13px">
+                  <form th:action="@{/candidate/remove_apply}" method="post" class="mt-1">
+                    <input type="text" name="idoffer" th:value="${offer.id}" hidden>
+                    <button type="submit" class="default-btn">Ne plus postuler</button>
+                  </form>
+                </div>
+              </div>
+              -->
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="job-sidebar">
+          <h3>Publiée par </h3>
+
+          <div class="posted-by">
+            <div th:if="${(offer.author!=null && offer.author.company!=null)}">
+              <img
+                      th:if="${offer.author.company.logoLocation!=null}"
+                      th:src="@{'/__${offer.author.company.logoLocation}__'}"
+                      alt="client image" width="120"
+              >
+              <img
+                      th:if="${offer.author.company.logoLocation==null && offer.author.photoLocation!=null}"
+                      th:src="@{'/__${offer.author.photoLocation}__'}" alt="client image" width="120"
+              >
+              <img
+                      th:if="${offer.author.company.logoLocation==null && offer.author.photoLocation==null}"
+                      th:src="@{/assets/frontend/img/user-icon.png}" alt="client image" width="120"
+              >
+            </div>
+            <div th:unless="${(offer.author!=null && offer.author.company!=null)}">
+              <img th:src="@{/assets/frontend/img/user-icon.png}" alt="client image" width="120">
+              <!--
+              <img
+                      th:if="${offer.author.company!=null && offer.author.company.logoLocation!=null}"
+                      th:src="@{'/__${offer.author.company.logoLocation}__'}" alt="client image" width="120"
+              >
+              <img
+                      th:if="${offer.author!=null && offer.author.photoLocation!=null}"
+                      th:src="@{'/__${offer.author.photoLocation}__'}" alt="client image" width="120"
+              >
+              -->
+            </div>
+            <h4 th:if="${offer.author!=null}">
+              <a
+                      th:if="${offer.author.company!=null && offer.author.company.websitelink!=''}"
+                      th:href="${offer.author.company.websitelink}"
+                      th:text="${offer.author.company.name}"
+                      target="_blank"
+              ></a>
+              <br/>
+              <span th:if="${offer.author.company!=null && offer.author.company.websitelink==''}" th:text="${offer.author.company.name}"></span>
+              <a
+                      th:unless="${offer.author.company!=null}"
+                      th:href="@{'/user_account/details_profile?id=__${offer.author.id}__'}" th:text="${offer.author.firstname+' '+offer.author.lastname}"
+                      target="_blank"
+              ></a>
+              <span th:unless="${offer.author.company!=null}" th:text="${offer.author.email}"></span>
+            </h4>
+            <h4 th:unless="${offer.author!=null}">Anonyme</h4>
+          </div>
+
+          <!-- <span>Admin</span> -->
+
+        </div>
+
+        <!--
+        <div class="job-sidebar">
+          <h3>Mots clés</h3>
+          <ul th:if="${offer.tags.size > 0}">
+            <li
+                    th:each="offerTag:${offer.tags}"
+            >
+              <a href="#" th:text="${offerTag.libelle}"></a>
+            </li>
+          </ul>
+          <p th:unless="${offer.tags.size > 0}">Cette offre n'est associée à aucun tag pour le moment</p>
+        </div>
+        -->
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!--
+<section class="subscribe-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <div class="section-title">
+                    <h2>Recevez les notifications des nouvelles offres d'emplois</h2>
+                    <p>Inscrivez-vous et recevez des notifications concernant des nouvelles offres d'emplois par mail</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <form class="newsletter-form" data-toggle="validator">
+                    <input type="email" class="form-control" placeholder="Entrer votre adresse mail" name="email" required
+                           autocomplete="off">
+                    <button class="default-btn sub-btn" type="submit">
+                        S'abonner
+                    </button>
+                    <div id="validator-newsletter" class="form-result"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+-->
+
+<!-- Modal -->
+
+<!--
+<div
+        th:if="${userConnected != null}"
+        class="modal fade" id="applyOfferModal" tabindex="-1" role="dialog"
+        aria-labelledby="applyOfferModalLabel" aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="applyOfferModalLabel">Postuler à cette offre</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form th:action="@{/offer_details/__${offer.id}__}" enctype="multipart/form-data" method="post">
+        <input type="text" name="idcandidate" th:value="${userConnected.id}" hidden>
+        <input type="text" name="idoffer" th:value="${offer.id}" hidden>
+
+        <div class="modal-body">
+          <div class="col-12">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group d-flex flex-column">
+                  <label>Télécharger le CV</label>
+                  <input name="cv" type="file" id="cv" accept=".doc, .docx, .pdf, image/*">
+                  <span>Si aucun CV n'a été sélectioné, votre CV par défaut sera automatiquement sélectionné !</span>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="form-group d-flex flex-column">
+                  <label>Message</label>
+                  <textarea name="message" class="form-control" th:placeholder="${'Entrer votre message (Facultatif)'}"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+          <button type="submit" class="btn btn-primary">Valider</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+-->
+
+<!--
+
+
+                            <div class="details-text">
+                                <h3>Conditions requises</h3>
+                                <p> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                                <ul>
+                                    <li>
+                                        <i class='bx bx-check'></i>
+                                        Expérience professionnelle
+                                    </li>
+                                    <li>
+                                        <i class='bx bx-check'></i>
+                                        Compétences (compétences générales et/ou compétences techniques)
+                                    </li>
+                                    <li>
+                                        <i class='bx bx-check'></i>
+                                        Qualités et attributs personnels.
+                                    </li>
+                                    <li>
+                                        <i class='bx bx-check'></i>
+                                        Soutenir le déploiement des logiciels en production.
+                                    </li>
+                                    <li>
+                                        <i class='bx bx-check'></i>
+                                        Guider et encadrer les ingénieurs juniors. Servir de chef d'équipe si nécessaire.
+                                    </li>
+                                </ul>
+                            </div>
+
+
+                <div class="job-sidebar">
+                    <h3>Location</h3>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d387190.27991517034!2d-74.25987556253516!3d40.697670063539654!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2sbd!4v1588772651198!5m2!1sen!2sbd" frameborder="0"></iframe>
+                </div>
+
+
+                <div class="job-sidebar social-share">
+                    <h3>Share In</h3>
+                    <ul>
+                        <li>
+                            <a href="#" target="_blank">
+                                <i class="bx bxl-facebook"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" target="_blank">
+                                <i class="bx bxl-twitter"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" target="_blank">
+                                <i class="bx bxl-pinterest"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" target="_blank">
+                                <i class="bx bxl-linkedin"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+
+                <section class="job-style-two pt-100 pb-70">
+    <div class="container">
+        <div class="section-title text-center">
+            <h2>Jobs You May Be Interested In</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida</p>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="job-card-two">
+                    <div class="row align-items-center">
+                        <div class="col-md-1">
+                            <div class="company-logo">
+                                <a href="job-details.html">
+                                    <img src="assets/img/company-logo/1.png" alt="logo">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="job-info">
+                                <h3>
+                                    <a href="#">Web Designer, Graphic Designer, UI/UX Designer </a>
+                                </h3>
+                                <ul>
+                                    <li>
+                                        <i class='bx bx-briefcase'></i>
+                                        Graphics Designer
+                                    </li>
+                                    <li>
+                                        <i class='bx bx-briefcase'></i>
+                                        $35000-$38000
+                                    </li>
+                                    <li>
+                                        <i class='bx bx-location-plus'></i>
+                                        Wellesley Rd, London
+                                    </li>
+                                    <li>
+                                        <i class='bx bx-stopwatch'></i>
+                                        9 days ago
+                                    </li>
+                                </ul>
+                                <span>Full Time</span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="theme-btn text-right">
+                                <a href="#" class="default-btn">
+                                    Browse Job
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="job-card-two">
+                    <div class="row align-items-center">
+                        <div class="col-md-1">
+                            <div class="company-logo">
+                                <a href="job-details.html">
+                                    <img src="assets/img/company-logo/2.png" alt="logo">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="job-info">
+                                <h3>
+                                    <a href="#">Website Developer & Software Developer</a>
+                                </h3>
+                                <ul>
+                                    <li>
+                                        <i class='bx bx-briefcase'></i>
+                                        Web Developer
+                                    </li>
+                                    <li>
+                                        <i class='bx bx-briefcase'></i>
+                                        $3000-$8000
+                                    </li>
+                                    <li>
+                                        <i class='bx bx-location-plus'></i>
+                                        Garden Road, UK
+                                    </li>
+                                    <li>
+                                        <i class='bx bx-stopwatch'></i>
+                                        5 days ago
+                                    </li>
+                                </ul>
+                                <span>Full Time</span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="theme-btn text-right">
+                                <a href="#" class="default-btn">
+                                    Browse Job
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="job-card-two">
+                    <div class="row align-items-center">
+                        <div class="col-md-1">
+                            <div class="company-logo">
+                                <a href="job-details.html">
+                                    <img src="assets/img/company-logo/3.png" alt="logo">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="job-info">
+                                <h3>
+                                    <a href="#">Application Developer & Web Designer</a>
+                                </h3>
+                                <ul>
+                                    <li>
+                                        <i class='bx bx-briefcase'></i>
+                                        App Developer
+                                    </li>
+                                    <li>
+                                        <i class='bx bx-briefcase'></i>
+                                        $3000-$4000
+                                    </li>
+                                    <li>
+                                        <i class='bx bx-location-plus'></i>
+                                        State City, USA
+                                    </li>
+                                    <li>
+                                        <i class='bx bx-stopwatch'></i>
+                                        8 days ago
+                                    </li>
+                                </ul>
+                                <span>Part-Time</span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="theme-btn text-right">
+                                <a href="#" class="default-btn">
+                                    Browse Job
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="job-card-two">
+                    <div class="row align-items-center">
+                        <div class="col-md-1">
+                            <div class="company-logo">
+                                <a href="job-details.html">
+                                    <img src="assets/img/company-logo/4.png" alt="logo">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="job-info">
+                                <h3>
+                                    <a href="#">Frontend & Backend Developer</a>
+                                </h3>
+                                <ul>
+                                    <li>
+                                        <i class='bx bx-briefcase'></i>
+                                        Web Developer
+                                    </li>
+                                    <li>
+                                        <i class='bx bx-briefcase'></i>
+                                        $5000-$8000
+                                    </li>
+                                    <li>
+                                        <i class='bx bx-location-plus'></i>
+                                        Drive Post NY 676
+                                    </li>
+                                    <li>
+                                        <i class='bx bx-stopwatch'></i>
+                                        1 days ago
+                                    </li>
+                                </ul>
+                                <span>Full Time</span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="theme-btn text-right">
+                                <a href="#" class="default-btn">
+                                    Browse Job
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="job-card-two">
+                    <div class="row align-items-center">
+                        <div class="col-md-1">
+                            <div class="company-logo">
+                                <a href="job-details.html">
+                                    <img src="assets/img/company-logo/5.png" alt="logo">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="job-info">
+                                <h3>
+                                    <a href="#">IT Department & Manager</a>
+                                </h3>
+                                <ul>
+                                    <li>
+                                        <i class='bx bx-briefcase'></i>
+                                        Manager
+                                    </li>
+                                    <li>
+                                        <i class='bx bx-briefcase'></i>
+                                        $35000-$38000
+                                    </li>
+                                    <li>
+                                        <i class='bx bx-location-plus'></i>
+                                        Wellesley Rd, London
+                                    </li>
+                                    <li>
+                                        <i class='bx bx-stopwatch'></i>
+                                        7 days ago
+                                    </li>
+                                </ul>
+                                <span>Full Time</span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="theme-btn text-right">
+                                <a href="#" class="default-btn">
+                                    Browse Job
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+-->
+
+<!-- End Main Content -->
+
+<th:block th:replace="fragments/frontend/fragment_footer :: footer" />
+
+<th:block th:replace="fragments/frontend/fragment_script :: script" />
+
+</body>
+</html>
